@@ -247,7 +247,8 @@
       <!--<AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>-->
       <!--<ConformanceMode>false</ConformanceMode>-->
 
-      <AdditionalOptions Condition="'$(ManagedCxx)'=='true'">%(AdditionalOptions) /clr:netcore /wd4956</AdditionalOptions>
+      <AdditionalOptions Condition="('$(ManagedCxx)'=='true') and ('$(TargetFramework)'!='net481')">%(AdditionalOptions) /clr:netcore /wd4956</AdditionalOptions>
+      <AdditionalOptions Condition="('$(ManagedCxx)'=='true') and ('$(TargetFramework)'=='net481')">%(AdditionalOptions) /wd4956</AdditionalOptions>
       <ShowIncludes Condition="'$(ShowIncludes)'=='true'">true</ShowIncludes>
     </ClCompile>
     <Link>

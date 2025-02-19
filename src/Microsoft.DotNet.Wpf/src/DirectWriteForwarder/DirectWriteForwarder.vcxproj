@@ -28,7 +28,8 @@
   </ItemGroup>
   <PropertyGroup>
     <UseDestinationLibFolder>true</UseDestinationLibFolder>
-    <TargetFrameworkIdentifier>.NETCoreApp</TargetFrameworkIdentifier>
+    <TargetFrameworkIdentifier Condition="'$(TargetFramework)'!='net481'">.NETCoreApp</TargetFrameworkIdentifier>
+    <TargetFrameworkIdentifier Condition="'$(TargetFramework)'=='net481'">.NETFramework</TargetFrameworkIdentifier>
     <RestoreProjectStyle>Unknown</RestoreProjectStyle>
     <!-- 
       Opting out of this to ensure _WindowsBaseReference is used as 
@@ -38,8 +39,10 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup>
-    <Keyword>NetCoreCProj</Keyword>
-    <CLRSupport>pure</CLRSupport>
+    <Keyword Condition="'$(TargetFramework)'!='net481'">NetCoreCProj</Keyword>
+    <Keyword Condition="'$(TargetFramework)'=='net481'">ManagedCProj</Keyword>
+    <CLRSupport Condition="'$(TargetFramework)'!='net481'">pure</CLRSupport>
+    <CLRSupport Condition="'$(TargetFramework)'=='net481'">true</CLRSupport>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ConfigurationType>DynamicLibrary</ConfigurationType>
   </PropertyGroup>
@@ -90,7 +93,7 @@
     PackageReferences to pass to CppCliHelper target
   -->
   <ItemGroup>
-    <AdditionalPackageReference Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
+    <AdditionalPackageReference Condition="'$(TargetFramework)'!='net481'" Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
   </ItemGroup>
   <!--
     Ignore ijwhost.dll during packaging
@@ -125,5 +128,10 @@
       <SourceRevisionId>$(BUILD_SOURCEVERSION)</SourceRevisionId>
       <SourceRevisionId Condition="'$(SourceRevisionId)' == ''">unknownrev</SourceRevisionId>
     </PropertyGroup>
+  </Target>
+  <Target Condition="'$(TargetFramework)'=='net481'" Name="RemoveNetFxReferences" BeforeTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <Reference Remove="$(FrameworkPathOverride)\WindowsBase.dll" />
+    </ItemGroup>
   </Target>
 </Project>

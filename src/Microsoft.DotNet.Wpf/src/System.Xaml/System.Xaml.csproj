@@ -125,7 +125,7 @@
     <PackageReference Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="$(WpfSourceDir)System.Xaml\ref\System.Xaml-ref.csproj">
+    <ProjectReference Condition="'$(TargetFramework)'!='net481'" Include="$(WpfSourceDir)System.Xaml\ref\System.Xaml-ref.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>

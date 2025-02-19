@@ -209,7 +209,7 @@
 
     <ProjectReference Include="$(WpfSourceDir)PresentationCore\PresentationCore.csproj" />
 
-    <ProjectReference Include="$(WpfSourceDir)PresentationUI\ref\PresentationUI-ref.csproj">
+    <ProjectReference Condition="'$(TargetFramework)'!='net481'" Include="$(WpfSourceDir)PresentationUI\ref\PresentationUI-ref.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>

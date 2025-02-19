@@ -49,7 +49,7 @@
     <ProjectReference Include="$(WpfSourceDir)UIAutomation\UIAutomationProvider\UIAutomationProvider.csproj" />
     <ProjectReference Include="$(WpfSourceDir)UIAutomation\UIAutomationTypes\UIAutomationTypes.csproj" />
 
-    <ProjectReference Include="$(WpfSourceDir)WindowsFormsIntegration\ref\WindowsFormsIntegration-ref.csproj" >
+    <ProjectReference Condition="'$(TargetFramework)'!='net481'" Include="$(WpfSourceDir)WindowsFormsIntegration\ref\WindowsFormsIntegration-ref.csproj" >
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
