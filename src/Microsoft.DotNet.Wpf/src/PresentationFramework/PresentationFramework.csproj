@@ -1425,7 +1425,7 @@
   <ItemGroup>
     <ProjectReference Include="$(WpfCycleBreakersDir)PresentationUI\PresentationUI-PresentationFramework-impl-cycle.csproj" />
     <ProjectReference Include="$(WpfSourceDir)ReachFramework\ReachFramework.csproj" />
-    <ProjectReference Condition="'$(TargetFramework)'!='net481'" Include="$(WpfSourceDir)System.Printing\ref\System.Printing-ref.csproj" />
+    <ProjectReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="$(WpfSourceDir)System.Printing\ref\System.Printing-ref.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -1437,7 +1437,7 @@
     <ProjectReference Include="$(WpfSourceDir)WindowsBase\WindowsBase.csproj" />
     <ProjectReference Include="$(WpfSourceDir)UIAutomation\UIAutomationTypes\UIAutomationTypes.csproj" />
     <ProjectReference Include="$(WpfSourceDir)UIAutomation\UIAutomationProvider\UIAutomationProvider.csproj" />
-    <ProjectReference Condition="'$(TargetFramework)'!='net481'" Include="$(WpfSourceDir)PresentationFramework\ref\PresentationFramework-ref.csproj">
+    <ProjectReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="$(WpfSourceDir)PresentationFramework\ref\PresentationFramework-ref.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>

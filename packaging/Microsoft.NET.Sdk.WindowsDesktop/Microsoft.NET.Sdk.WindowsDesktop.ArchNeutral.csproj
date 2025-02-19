@@ -28,6 +28,6 @@
   </ItemGroup>
 
   <!-- Windows Forms validation and packaging -->
-  <Import Condition="'$(TargetFramework)'!='net481'" Project="Microsoft.NET.Sdk.WindowsDesktop.WinForms.Packaging.targets" />
+  <Import Condition="$(TargetFramework.StartsWith('net4'))!='true'" Project="Microsoft.NET.Sdk.WindowsDesktop.WinForms.Packaging.targets" />
 
 </Project>

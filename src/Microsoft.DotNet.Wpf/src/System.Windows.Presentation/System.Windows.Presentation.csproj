@@ -19,7 +19,7 @@
     <NetCoreReference Include="System.Resources.ResourceManager" />
 
     <ProjectReference Include="$(WpfSourceDir)WindowsBase\WindowsBase.csproj" />
-    <ProjectReference Condition="'$(TargetFramework)'!='net481'" Include="$(WpfSourceDir)System.Windows.Presentation\ref\System.Windows.Presentation-ref.csproj">
+    <ProjectReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="$(WpfSourceDir)System.Windows.Presentation\ref\System.Windows.Presentation-ref.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>

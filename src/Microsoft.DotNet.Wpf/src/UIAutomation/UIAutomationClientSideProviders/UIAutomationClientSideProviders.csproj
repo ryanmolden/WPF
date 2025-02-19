@@ -107,7 +107,7 @@
     <ProjectReference Include="$(WpfSourceDir)UIAutomation\UIAutomationTypes\UIAutomationTypes.csproj" />
     <ProjectReference Include="$(WpfSourceDir)UIAutomation\UIAutomationProvider\UIAutomationProvider.csproj" />
     <ProjectReference Include="$(WpfSourceDir)UIAutomation\UIAutomationClient\UIAutomationClient.csproj" />
-    <ProjectReference Condition="'$(TargetFramework)'!='net481'" Include="$(WpfSourceDir)UIAutomation\UIAutomationClientSideProviders\ref\UIAutomationClientSideProviders-ref.csproj">
+    <ProjectReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="$(WpfSourceDir)UIAutomation\UIAutomationClientSideProviders\ref\UIAutomationClientSideProviders-ref.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>

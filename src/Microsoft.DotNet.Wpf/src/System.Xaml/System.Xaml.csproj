@@ -128,11 +128,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Security.Permissions" Version="$(SystemSecurityPermissionsPackageVersion)" />
-    <PackageReference Condition="'$(TargetFramework)'!='net481'" Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
-    <PackageReference Condition="'$(TargetFramework)'=='net481'" Include="System.Memory" Version="$(SystemMemoryPackageVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'" Include="System.Memory" Version="$(SystemMemoryPackageVersion)" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Condition="'$(TargetFramework)'!='net481'" Include="$(WpfSourceDir)System.Xaml\ref\System.Xaml-ref.csproj">
+    <ProjectReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="$(WpfSourceDir)System.Xaml\ref\System.Xaml-ref.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>

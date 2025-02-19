@@ -46,7 +46,7 @@
     <ProjectReference Include="$(WpfSourceDir)PresentationCore\PresentationCore.csproj" />
     <ProjectReference Include="$(WpfSourceDir)PresentationFramework\PresentationFramework.csproj" />
 
-    <ProjectReference Condition="'$(TargetFramework)'!='net481'" Include="$(WpfSourceDir)Themes\PresentationFramework.Royale\ref\PresentationFramework.Royale-ref.csproj">
+    <ProjectReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="$(WpfSourceDir)Themes\PresentationFramework.Royale\ref\PresentationFramework.Royale-ref.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>

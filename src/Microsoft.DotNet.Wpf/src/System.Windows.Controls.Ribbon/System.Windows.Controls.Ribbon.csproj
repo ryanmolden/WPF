@@ -180,7 +180,7 @@
 
     <ProjectReference Include="$(WpfSourceDir)Themes\PresentationFramework.Classic\PresentationFramework.Classic.csproj" />
 
-    <ProjectReference Condition="'$(TargetFramework)'!='net481'" Include="$(WpfSourceDir)System.Windows.Controls.Ribbon\ref\System.Windows.Controls.Ribbon-ref.csproj">
+    <ProjectReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="$(WpfSourceDir)System.Windows.Controls.Ribbon\ref\System.Windows.Controls.Ribbon-ref.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
 
