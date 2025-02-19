@@ -11,6 +11,7 @@ namespace MS.Internal.Xaml.Parser
         public const char PlusSign = '+';
         public const char UnderScore = '_';
         public const char Dot = '.';
+        public const string DotStr = ".";
 
         public string Name { get; protected set; }
 
@@ -37,7 +38,7 @@ namespace MS.Internal.Xaml.Parser
 
         public static bool ContainsDot(string name)
         {
-            return name.Contains(Dot);
+            return name.Contains(DotStr);
         }
 
         public static bool IsValidXamlName(string name)

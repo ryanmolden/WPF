@@ -22,7 +22,7 @@ namespace System.Windows.Markup
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            ArgumentNullException.ThrowIfNull(context);
+            ThrowHelpers.ThrowIfNull(context);
             
             var nameResolver = (IXamlNameResolver)context.GetService(typeof(IXamlNameResolver));
             if (nameResolver == null)
@@ -62,7 +62,7 @@ namespace System.Windows.Markup
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            ArgumentNullException.ThrowIfNull(context);
+            ThrowHelpers.ThrowIfNull(context);
 
             var nameProvider = (IXamlNameProvider)context.GetService(typeof(IXamlNameProvider));
             if (nameProvider == null)

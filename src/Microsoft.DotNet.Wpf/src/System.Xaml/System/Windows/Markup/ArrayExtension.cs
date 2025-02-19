@@ -46,7 +46,7 @@ namespace System.Windows.Markup
         /// <param name="elements">The array to write</param>
         public ArrayExtension(Array elements)
         {
-            ArgumentNullException.ThrowIfNull(elements);
+            ThrowHelpers.ThrowIfNull(elements);
 
             _arrayList.AddRange(elements);
             _arrayType = elements.GetType().GetElementType();

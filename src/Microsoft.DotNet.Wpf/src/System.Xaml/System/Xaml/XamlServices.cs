@@ -18,7 +18,7 @@ namespace System.Xaml
 
         public static object Parse(string xaml)
         {
-            ArgumentNullException.ThrowIfNull(xaml);
+            ThrowHelpers.ThrowIfNull(xaml);
 
             StringReader stringReader = new StringReader(xaml);
             using (XmlReader xmlReader = XmlReader.Create(stringReader))
@@ -30,7 +30,7 @@ namespace System.Xaml
 
         public static object Load(string fileName)
         {
-            ArgumentNullException.ThrowIfNull(fileName);
+            ThrowHelpers.ThrowIfNull(fileName);
 
             using (XmlReader xmlReader = XmlReader.Create(fileName))
             {
@@ -41,7 +41,7 @@ namespace System.Xaml
 
         public static object Load(Stream stream)
         {
-            ArgumentNullException.ThrowIfNull(stream);
+            ThrowHelpers.ThrowIfNull(stream);
 
             using (XmlReader xmlReader = XmlReader.Create(stream))
             {
@@ -52,7 +52,7 @@ namespace System.Xaml
 
         public static object Load(TextReader textReader)
         {
-            ArgumentNullException.ThrowIfNull(textReader);
+            ThrowHelpers.ThrowIfNull(textReader);
 
             using (XmlReader xmlReader = XmlReader.Create(textReader))
             {
@@ -63,7 +63,7 @@ namespace System.Xaml
 
         public static object Load(XmlReader xmlReader)
         {
-            ArgumentNullException.ThrowIfNull(xmlReader);
+            ThrowHelpers.ThrowIfNull(xmlReader);
 
             using (XamlXmlReader xamlReader = new XamlXmlReader(xmlReader))
             {
@@ -75,7 +75,7 @@ namespace System.Xaml
 
         public static object Load(XamlReader xamlReader)
         {
-            ArgumentNullException.ThrowIfNull(xamlReader);
+            ThrowHelpers.ThrowIfNull(xamlReader);
 
             XamlObjectWriter objectWriter = new XamlObjectWriter(xamlReader.SchemaContext);
 
@@ -92,9 +92,9 @@ namespace System.Xaml
 
         public static void Transform(XamlReader xamlReader, XamlWriter xamlWriter, bool closeWriter)
         {
-            ArgumentNullException.ThrowIfNull(xamlReader);
+            ThrowHelpers.ThrowIfNull(xamlReader);
 
-            ArgumentNullException.ThrowIfNull(xamlWriter);
+            ThrowHelpers.ThrowIfNull(xamlWriter);
 
             IXamlLineInfo xamlLineInfo = xamlReader as IXamlLineInfo;
             IXamlLineInfoConsumer xamlLineInfoConsumer = xamlWriter as IXamlLineInfoConsumer;
@@ -136,7 +136,7 @@ namespace System.Xaml
 
         public static void Save(String fileName, object instance)
         {
-            ArgumentNullException.ThrowIfNull(fileName);
+            ThrowHelpers.ThrowIfNull(fileName);
             //
             // At this point it can only be empty
             if (string.IsNullOrEmpty(fileName))
@@ -152,7 +152,7 @@ namespace System.Xaml
 
         public static void Save(Stream stream, object instance)
         {
-            ArgumentNullException.ThrowIfNull(stream);
+            ThrowHelpers.ThrowIfNull(stream);
             using (var writer = XmlWriter.Create(stream, new XmlWriterSettings { Indent = true, OmitXmlDeclaration = true }))
             {
                 Save(writer, instance);
@@ -162,7 +162,7 @@ namespace System.Xaml
 
         public static void Save(TextWriter writer, object instance)
         {
-            ArgumentNullException.ThrowIfNull(writer);
+            ThrowHelpers.ThrowIfNull(writer);
             using (var xmlWriter = XmlWriter.Create(writer, new XmlWriterSettings { Indent = true, OmitXmlDeclaration = true }))
             {
                 Save(xmlWriter, instance);
@@ -172,7 +172,7 @@ namespace System.Xaml
 
         public static void Save(XmlWriter writer, object instance)
         {
-            ArgumentNullException.ThrowIfNull(writer);
+            ThrowHelpers.ThrowIfNull(writer);
             using (XamlXmlWriter xamlWriter = new XamlXmlWriter(writer, new XamlSchemaContext()))
             {
                 Save(xamlWriter, instance);
@@ -181,7 +181,7 @@ namespace System.Xaml
 
         public static void Save(XamlWriter writer, object instance)
         {
-            ArgumentNullException.ThrowIfNull(writer);
+            ThrowHelpers.ThrowIfNull(writer);
 
             XamlObjectReader objectReader = new XamlObjectReader(instance, writer.SchemaContext);
 

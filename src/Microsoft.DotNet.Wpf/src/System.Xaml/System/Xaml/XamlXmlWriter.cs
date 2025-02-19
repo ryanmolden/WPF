@@ -50,7 +50,7 @@ namespace System.Xaml
 
         public XamlXmlWriter(Stream stream, XamlSchemaContext schemaContext, XamlXmlWriterSettings settings)
         {
-            ArgumentNullException.ThrowIfNull(stream);
+            ThrowHelpers.ThrowIfNull(stream);
 
             if (settings != null && settings.CloseOutput)
             {
@@ -69,7 +69,7 @@ namespace System.Xaml
 
         public XamlXmlWriter(TextWriter textWriter, XamlSchemaContext schemaContext, XamlXmlWriterSettings settings)
         {
-            ArgumentNullException.ThrowIfNull(textWriter);
+            ThrowHelpers.ThrowIfNull(textWriter);
 
             if (settings != null && settings.CloseOutput)
             {
@@ -88,7 +88,7 @@ namespace System.Xaml
 
         public XamlXmlWriter(XmlWriter xmlWriter, XamlSchemaContext schemaContext, XamlXmlWriterSettings settings)
         {
-            ArgumentNullException.ThrowIfNull(xmlWriter);
+            ThrowHelpers.ThrowIfNull(xmlWriter);
 
             InitializeXamlXmlWriter(xmlWriter, schemaContext, settings);
         }
@@ -160,7 +160,7 @@ namespace System.Xaml
         {
             CheckIsDisposed();
 
-            ArgumentNullException.ThrowIfNull(type);
+            ThrowHelpers.ThrowIfNull(type);
 
             if (!type.IsNameValid)
             {
@@ -185,7 +185,7 @@ namespace System.Xaml
         {
             CheckIsDisposed();
 
-            ArgumentNullException.ThrowIfNull(property);
+            ThrowHelpers.ThrowIfNull(property);
 
             if (!property.IsNameValid)
             {
@@ -224,7 +224,7 @@ namespace System.Xaml
         {
             CheckIsDisposed();
 
-            ArgumentNullException.ThrowIfNull(namespaceDeclaration);
+            ThrowHelpers.ThrowIfNull(namespaceDeclaration);
 
             if (namespaceDeclaration.Prefix == null)
             {

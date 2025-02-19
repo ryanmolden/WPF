@@ -23,7 +23,7 @@ namespace System.Xaml
 
         public XamlNodeQueue(XamlSchemaContext schemaContext)
         {
-            ArgumentNullException.ThrowIfNull(schemaContext);
+            ThrowHelpers.ThrowIfNull(schemaContext);
             _nodeQueue = new Queue<XamlNode>();
             _endOfStreamNode = new XamlNode(XamlNode.InternalNodeType.EndOfStream);
             _writer = new WriterDelegate(Add, AddLineInfo, schemaContext);

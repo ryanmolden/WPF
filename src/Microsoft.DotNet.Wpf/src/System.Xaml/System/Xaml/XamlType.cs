@@ -46,7 +46,7 @@ namespace System.Xaml
 
         public XamlType(string unknownTypeNamespace, string unknownTypeName, IList<XamlType> typeArguments, XamlSchemaContext schemaContext)
         {
-            ArgumentNullException.ThrowIfNull(unknownTypeNamespace);
+            ThrowHelpers.ThrowIfNull(unknownTypeNamespace);
 
             _name = unknownTypeName ?? throw new ArgumentNullException(nameof(unknownTypeName));
             _namespaces = new ReadOnlyCollection<string>(new string[] { unknownTypeNamespace });
@@ -67,7 +67,7 @@ namespace System.Xaml
 
         internal XamlType(string alias, Type underlyingType, XamlSchemaContext schemaContext, XamlTypeInvoker invoker, TypeReflector reflector)
         {
-            ArgumentNullException.ThrowIfNull(underlyingType);
+            ThrowHelpers.ThrowIfNull(underlyingType);
 
             _reflector = reflector ?? new TypeReflector(underlyingType);
             _name = alias ?? GetTypeName(underlyingType);
@@ -1511,7 +1511,11 @@ namespace System.Xaml
                 // save the subscript
                 string subscript;
                 typeName = GenericTypeNameScanner.StripSubscript(typeName, out subscript);
+#if NET
                 typeName = string.Concat(typeName.AsSpan(0, index), subscript);
+#else
+                typeName = string.Concat(typeName.AsSpan(0, index).ToString(), subscript);
+#endif
             }
             // if nested, add the containing name
             if (type.IsNested)

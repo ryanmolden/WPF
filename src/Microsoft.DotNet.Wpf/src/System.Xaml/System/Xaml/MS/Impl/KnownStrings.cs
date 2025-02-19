@@ -2,6 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System.Globalization;
+
 namespace System.Xaml.MS.Impl
 {
     internal static class KnownStrings
@@ -67,6 +69,13 @@ namespace System.Xaml.MS.Impl
             return a.Equals(b, StringComparison.Ordinal);
         }
 
+#if NETFX
+        public static bool Eq(ReadOnlySpan<char> a, string b)
+        {
+            return a.Equals(b.AsSpan(), StringComparison.Ordinal);
+        }
+#endif
+
         /// <summary>
         /// Standard String Index search operation.
         /// </summary>
@@ -80,7 +89,11 @@ namespace System.Xaml.MS.Impl
         /// </summary>
         public static int IndexOf(string src, char ch)
         {
+#if NET
             return src.IndexOf(ch, StringComparison.Ordinal);
+#else
+            return src.IndexOf(ch);
+#endif
         }
 
         public static bool EndsWith(string src, string target)

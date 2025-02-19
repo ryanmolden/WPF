@@ -48,6 +48,8 @@ namespace MS.Internal.Xaml.Parser
         public const char Backslash = '\\';
         public const char NullChar = '\0';
 
+        public const string BackslashStr = "\\";
+
         enum StringState { Value, Type, Property };
 
         XamlParserContext _context;
@@ -243,7 +245,7 @@ namespace MS.Internal.Xaml.Parser
                 value = value.Substring(2);
             } 
             
-            if (!value.Contains(Backslash))
+            if (!value.Contains(BackslashStr))
             {
                 return value;
             }

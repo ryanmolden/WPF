@@ -1119,7 +1119,11 @@ namespace System.Xaml.Schema
                 }
             }
 
-            public new V TryAdd(K name, V member)
+            public
+#if NET
+                new
+#endif
+                V TryAdd(K name, V member)
             {
                 // This instance is always held in a private field, safe to lock on
                 lock (this)

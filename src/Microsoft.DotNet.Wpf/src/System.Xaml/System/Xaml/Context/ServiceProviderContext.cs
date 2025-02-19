@@ -130,7 +130,7 @@ internal class ServiceProviderContext : ITypeDescriptorContext,  // derives from
                                                     IEnumerable<XamlType> ceilingTypes,
                                                     params XamlMember[] properties)
         {
-            ArgumentNullException.ThrowIfNull(properties);
+            ThrowHelpers.ThrowIfNull(properties);
 
             foreach (var property in properties)
             {
@@ -146,7 +146,7 @@ internal class ServiceProviderContext : ITypeDescriptorContext,  // derives from
 
         object IAmbientProvider.GetFirstAmbientValue(params XamlType[] types)
         {
-            ArgumentNullException.ThrowIfNull(types);
+            ThrowHelpers.ThrowIfNull(types);
 
             foreach (var type in types)
             {
@@ -164,7 +164,7 @@ internal class ServiceProviderContext : ITypeDescriptorContext,  // derives from
                                                     IEnumerable<XamlType> ceilingTypes,
                                                     params XamlMember[] properties)
         {
-            ArgumentNullException.ThrowIfNull(properties);
+            ThrowHelpers.ThrowIfNull(properties);
 
             foreach (var property in properties)
             {
@@ -180,7 +180,7 @@ internal class ServiceProviderContext : ITypeDescriptorContext,  // derives from
 
         IEnumerable<object> IAmbientProvider.GetAllAmbientValues(params XamlType[] types)
         {
-            ArgumentNullException.ThrowIfNull(types);
+            ThrowHelpers.ThrowIfNull(types);
 
             foreach (var type in types)
             {
@@ -200,7 +200,7 @@ internal class ServiceProviderContext : ITypeDescriptorContext,  // derives from
                                                     IEnumerable<XamlType> types,
                                                     params XamlMember[] properties)
         {
-            ArgumentNullException.ThrowIfNull(properties);
+            ThrowHelpers.ThrowIfNull(properties);
 
             foreach (var property in properties)
             {

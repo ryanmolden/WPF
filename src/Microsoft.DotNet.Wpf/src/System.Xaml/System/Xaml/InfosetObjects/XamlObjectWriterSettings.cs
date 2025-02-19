@@ -15,7 +15,7 @@ namespace System.Xaml
 
         public XamlObjectWriterSettings(XamlObjectWriterSettings settings)
         {
-            ArgumentNullException.ThrowIfNull(settings);
+            ThrowHelpers.ThrowIfNull(settings);
             AfterBeginInitHandler = settings.AfterBeginInitHandler;
             BeforePropertiesHandler = settings.BeforePropertiesHandler;
             AfterPropertiesHandler = settings.AfterPropertiesHandler;

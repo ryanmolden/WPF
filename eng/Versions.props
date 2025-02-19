@@ -36,6 +36,7 @@
     <SystemDrawingCommonVersion>8.0.12</SystemDrawingCommonVersion>
     <SystemDirectoryServicesVersion>8.0.0</SystemDirectoryServicesVersion>
     <SystemIOPackagingVersion>8.0.1</SystemIOPackagingVersion>
+    <SystemMemoryPackageVersion>4.6.0</SystemMemoryPackageVersion>
     <SystemReflectionMetadataLoadContextVersion>8.0.1</SystemReflectionMetadataLoadContextVersion>
     <SystemReflectionTypeExtensionsPackageVersion>4.6.0-preview4.19176.11</SystemReflectionTypeExtensionsPackageVersion>
     <SystemResourcesExtensionsVersion>8.0.0</SystemResourcesExtensionsVersion>

@@ -38,6 +38,12 @@
     <Compile Include="$(WpfSharedDir)MS\Internal\Xaml\Context\XamlFrame.cs">
       <Link>Common\WPF\MS\Internal\Xaml\Context\XamlFrame.cs</Link>
     </Compile>
+    <Compile Include="$(WpfSharedDir)System\DictionaryHelpers.cs">
+      <Link>Common\WPF\System\DictionaryHelpers.cs</Link>
+    </Compile>
+    <Compile Include="$(WpfSharedDir)System\ThrowHelpers.cs">
+      <Link>Common\WPF\System\ThrowHelpers.cs</Link>
+    </Compile>
     <Compile Include="$(WpfSharedDir)System\Windows\Markup\XmlCompatibilityReader.cs">
       <Link>Common\WPF\System\Windows\Markup\XmlCompatibilityReader.cs</Link>
     </Compile>
@@ -122,7 +128,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Security.Permissions" Version="$(SystemSecurityPermissionsPackageVersion)" />
-    <PackageReference Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
+    <PackageReference Condition="'$(TargetFramework)'!='net481'" Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
+    <PackageReference Condition="'$(TargetFramework)'=='net481'" Include="System.Memory" Version="$(SystemMemoryPackageVersion)" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Condition="'$(TargetFramework)'!='net481'" Include="$(WpfSourceDir)System.Xaml\ref\System.Xaml-ref.csproj">

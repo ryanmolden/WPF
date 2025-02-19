@@ -37,7 +37,7 @@ namespace System.Xaml
 
         public XamlBackgroundReader(XamlReader wrappedReader)
         {
-            ArgumentNullException.ThrowIfNull(wrappedReader);
+            ThrowHelpers.ThrowIfNull(wrappedReader);
             Initialize(wrappedReader, 64);
         }
 

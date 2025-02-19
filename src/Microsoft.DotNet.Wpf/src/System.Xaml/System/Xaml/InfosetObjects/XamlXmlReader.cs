@@ -27,59 +27,59 @@ namespace System.Xaml
 
         public XamlXmlReader(XmlReader xmlReader)
         {
-            ArgumentNullException.ThrowIfNull(xmlReader);
+            ThrowHelpers.ThrowIfNull(xmlReader);
 
             Initialize(xmlReader, null, null);
         }
 
         public XamlXmlReader(XmlReader xmlReader, XamlXmlReaderSettings settings)
         {
-            ArgumentNullException.ThrowIfNull(xmlReader);
+            ThrowHelpers.ThrowIfNull(xmlReader);
 
             Initialize(xmlReader, null, settings);
         }
 
         public XamlXmlReader(XmlReader xmlReader, XamlSchemaContext schemaContext)
         {
-            ArgumentNullException.ThrowIfNull(schemaContext);
-            ArgumentNullException.ThrowIfNull(xmlReader);
+            ThrowHelpers.ThrowIfNull(schemaContext);
+            ThrowHelpers.ThrowIfNull(xmlReader);
 
             Initialize(xmlReader, schemaContext, null);
         }
 
         public XamlXmlReader(XmlReader xmlReader, XamlSchemaContext schemaContext, XamlXmlReaderSettings settings)
         {
-            ArgumentNullException.ThrowIfNull(schemaContext);
-            ArgumentNullException.ThrowIfNull(xmlReader);
+            ThrowHelpers.ThrowIfNull(schemaContext);
+            ThrowHelpers.ThrowIfNull(xmlReader);
 
             Initialize(xmlReader, schemaContext, settings);
         }
 
         public XamlXmlReader(string fileName)
         {
-            ArgumentNullException.ThrowIfNull(fileName);
+            ThrowHelpers.ThrowIfNull(fileName);
             Initialize(CreateXmlReader(fileName, null), null, null);
         }
 
         public XamlXmlReader(string fileName, XamlXmlReaderSettings settings)
         {
-            ArgumentNullException.ThrowIfNull(fileName);
+            ThrowHelpers.ThrowIfNull(fileName);
 
             Initialize(CreateXmlReader(fileName, settings), null, settings);
         }
 
         public XamlXmlReader(string fileName, XamlSchemaContext schemaContext)
         {
-            ArgumentNullException.ThrowIfNull(fileName);
-            ArgumentNullException.ThrowIfNull(schemaContext);
+            ThrowHelpers.ThrowIfNull(fileName);
+            ThrowHelpers.ThrowIfNull(schemaContext);
 
             Initialize(CreateXmlReader(fileName, null), schemaContext, null);
         }
 
         public XamlXmlReader(string fileName, XamlSchemaContext schemaContext, XamlXmlReaderSettings settings)
         {
-            ArgumentNullException.ThrowIfNull(fileName);
-            ArgumentNullException.ThrowIfNull(schemaContext);
+            ThrowHelpers.ThrowIfNull(fileName);
+            ThrowHelpers.ThrowIfNull(schemaContext);
 
             Initialize(CreateXmlReader(fileName, settings), schemaContext, settings);
         }
@@ -92,28 +92,28 @@ namespace System.Xaml
 
         public XamlXmlReader(Stream stream)
         {
-            ArgumentNullException.ThrowIfNull(stream);
+            ThrowHelpers.ThrowIfNull(stream);
             Initialize(CreateXmlReader(stream, null), null, null);
         }
 
         public XamlXmlReader(Stream stream, XamlXmlReaderSettings settings)
         {
-            ArgumentNullException.ThrowIfNull(stream);
+            ThrowHelpers.ThrowIfNull(stream);
             Initialize(CreateXmlReader(stream, settings), null, settings);
         }
 
         public XamlXmlReader(Stream stream, XamlSchemaContext schemaContext)
         {
-            ArgumentNullException.ThrowIfNull(stream);
-            ArgumentNullException.ThrowIfNull(schemaContext);
+            ThrowHelpers.ThrowIfNull(stream);
+            ThrowHelpers.ThrowIfNull(schemaContext);
 
             Initialize(CreateXmlReader(stream, null), schemaContext, null);
         }
 
         public XamlXmlReader(Stream stream, XamlSchemaContext schemaContext, XamlXmlReaderSettings settings)
         {
-            ArgumentNullException.ThrowIfNull(stream);
-            ArgumentNullException.ThrowIfNull(schemaContext);
+            ThrowHelpers.ThrowIfNull(stream);
+            ThrowHelpers.ThrowIfNull(schemaContext);
 
             Initialize(CreateXmlReader(stream, settings), schemaContext, settings);
         }
@@ -126,28 +126,28 @@ namespace System.Xaml
 
         public XamlXmlReader(TextReader textReader)
         {
-            ArgumentNullException.ThrowIfNull(textReader);
+            ThrowHelpers.ThrowIfNull(textReader);
             Initialize(CreateXmlReader(textReader, null), null, null);
         }
 
         public XamlXmlReader(TextReader textReader, XamlXmlReaderSettings settings)
         {
-            ArgumentNullException.ThrowIfNull(textReader);
+            ThrowHelpers.ThrowIfNull(textReader);
             Initialize(CreateXmlReader(textReader, settings), null, settings);
         }
 
         public XamlXmlReader(TextReader textReader, XamlSchemaContext schemaContext)
         {
-            ArgumentNullException.ThrowIfNull(textReader);
-            ArgumentNullException.ThrowIfNull(schemaContext);
+            ThrowHelpers.ThrowIfNull(textReader);
+            ThrowHelpers.ThrowIfNull(schemaContext);
 
             Initialize(CreateXmlReader(textReader, null), schemaContext, null);
         }
 
         public XamlXmlReader(TextReader textReader, XamlSchemaContext schemaContext, XamlXmlReaderSettings settings)
         {
-            ArgumentNullException.ThrowIfNull(textReader);
-            ArgumentNullException.ThrowIfNull(schemaContext);
+            ThrowHelpers.ThrowIfNull(textReader);
+            ThrowHelpers.ThrowIfNull(schemaContext);
 
             Initialize(CreateXmlReader(textReader, settings), schemaContext, settings);
         }

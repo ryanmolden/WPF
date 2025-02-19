@@ -51,7 +51,7 @@ namespace System.Xaml.Schema
 
         public virtual object GetValue(object instance)
         {
-            ArgumentNullException.ThrowIfNull(instance);
+            ThrowHelpers.ThrowIfNull(instance);
             ThrowIfUnknown();
             if (UnderlyingGetter == null)
             {
@@ -70,7 +70,7 @@ namespace System.Xaml.Schema
 
         public virtual void SetValue(object instance, object value)
         {
-            ArgumentNullException.ThrowIfNull(instance);
+            ThrowHelpers.ThrowIfNull(instance);
             ThrowIfUnknown();
             if (UnderlyingSetter == null)
             {

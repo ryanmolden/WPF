@@ -65,7 +65,7 @@ namespace System.Xaml
         protected XamlException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-            ArgumentNullException.ThrowIfNull(info);
+            ThrowHelpers.ThrowIfNull(info);
             LineNumber = info.GetInt32("Line");
             LinePosition = info.GetInt32("Offset");
         }
@@ -78,7 +78,7 @@ namespace System.Xaml
 #pragma warning disable SYSLIB0051 // Type or member is obsolete
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            ArgumentNullException.ThrowIfNull(info);
+            ThrowHelpers.ThrowIfNull(info);
 
             info.AddValue("Line", LineNumber);
             info.AddValue("Offset", LinePosition);
@@ -160,7 +160,7 @@ namespace System.Xaml
         protected XamlDuplicateMemberException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-            ArgumentNullException.ThrowIfNull(info);
+            ThrowHelpers.ThrowIfNull(info);
             DuplicateMember = (XamlMember)info.GetValue("DuplicateMember", typeof(XamlMember));
             ParentType = (XamlType)info.GetValue("ParentType", typeof(XamlType));
         }
@@ -172,7 +172,7 @@ namespace System.Xaml
 #pragma warning disable SYSLIB0051 // Type or member is obsolete
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            ArgumentNullException.ThrowIfNull(info);
+            ThrowHelpers.ThrowIfNull(info);
             info.AddValue("DuplicateMember", DuplicateMember);
             info.AddValue("ParentType", ParentType);
             base.GetObjectData(info, context);

@@ -27,8 +27,8 @@ namespace System.Xaml
         /// <param name="scopedElement">object mapped to name</param>
         public void RegisterName(string name, object scopedElement)
         {
-            ArgumentNullException.ThrowIfNull(name);
-            ArgumentNullException.ThrowIfNull(scopedElement);
+            ThrowHelpers.ThrowIfNull(name);
+            ThrowHelpers.ThrowIfNull(scopedElement);
 
             if (name.Length == 0)
                 throw new ArgumentException(SR.NameScopeNameNotEmptyString);
@@ -72,7 +72,7 @@ namespace System.Xaml
         /// <param name="name">name to be registered</param>
         public void UnregisterName(string name)
         {
-            ArgumentNullException.ThrowIfNull(name);
+            ThrowHelpers.ThrowIfNull(name);
 
             if (name.Length == 0)
                 throw new ArgumentException(SR.NameScopeNameNotEmptyString);
@@ -217,13 +217,13 @@ namespace System.Xaml
         {
             get
             {
-                ArgumentNullException.ThrowIfNull(key);
+                ThrowHelpers.ThrowIfNull(key);
                 return FindName(key);
             }
             set
             {
-                ArgumentNullException.ThrowIfNull(key);
-                ArgumentNullException.ThrowIfNull(value);
+                ThrowHelpers.ThrowIfNull(key);
+                ThrowHelpers.ThrowIfNull(value);
 
                 RegisterName(key, value);
             }
@@ -231,14 +231,14 @@ namespace System.Xaml
 
         public void Add(string key, object value)
         {
-            ArgumentNullException.ThrowIfNull(key);
+            ThrowHelpers.ThrowIfNull(key);
 
             RegisterName(key, value);
         }
 
         public bool ContainsKey(string key)
         {
-            ArgumentNullException.ThrowIfNull(key);
+            ThrowHelpers.ThrowIfNull(key);
 
             object value = FindName(key);
             return (value != null);

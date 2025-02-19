@@ -35,9 +35,9 @@ namespace System.Xaml
 
         public void RegisterName(string name, object scopedElement)
         {
-            ArgumentNullException.ThrowIfNull(name);
+            ThrowHelpers.ThrowIfNull(name);
 
-            ArgumentNullException.ThrowIfNull(scopedElement);
+            ThrowHelpers.ThrowIfNull(scopedElement);
 
             if (name.Length == 0)
                 throw new ArgumentException(SR.NameScopeNameNotEmptyString);
@@ -77,7 +77,7 @@ namespace System.Xaml
 
         public void UnregisterName(string name)
         {
-            ArgumentNullException.ThrowIfNull(name);
+            ThrowHelpers.ThrowIfNull(name);
 
             if (name.Length == 0)
                 throw new ArgumentException(SR.NameScopeNameNotEmptyString);
@@ -102,7 +102,7 @@ namespace System.Xaml
 
         public object FindName(string name)
         {
-            ArgumentNullException.ThrowIfNull(name);
+            ThrowHelpers.ThrowIfNull(name);
 
             if (name.Length == 0)
                 throw new ArgumentException(SR.NameScopeNameNotEmptyString);

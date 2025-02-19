@@ -52,8 +52,8 @@ namespace System.Xaml
 
         internal XamlMember(PropertyInfo propertyInfo, XamlSchemaContext schemaContext, XamlMemberInvoker invoker, MemberReflector reflector)
         {
-            ArgumentNullException.ThrowIfNull(propertyInfo);
-            ArgumentNullException.ThrowIfNull(schemaContext);
+            ThrowHelpers.ThrowIfNull(propertyInfo);
+            ThrowHelpers.ThrowIfNull(schemaContext);
             _name = propertyInfo.Name;
             _declaringType = schemaContext.GetXamlType(propertyInfo.DeclaringType);
             _memberType = MemberType.Instance;
@@ -75,8 +75,8 @@ namespace System.Xaml
 
         internal XamlMember(EventInfo eventInfo, XamlSchemaContext schemaContext, XamlMemberInvoker invoker, MemberReflector reflector)
         {
-            ArgumentNullException.ThrowIfNull(eventInfo);
-            ArgumentNullException.ThrowIfNull(schemaContext);
+            ThrowHelpers.ThrowIfNull(eventInfo);
+            ThrowHelpers.ThrowIfNull(schemaContext);
             _name = eventInfo.Name;
             _declaringType = schemaContext.GetXamlType(eventInfo.DeclaringType);
             _memberType = MemberType.Instance;
@@ -101,7 +101,7 @@ namespace System.Xaml
         internal XamlMember(string attachablePropertyName, MethodInfo getter, MethodInfo setter,
             XamlSchemaContext schemaContext, XamlMemberInvoker invoker, MemberReflector reflector)
         {
-            ArgumentNullException.ThrowIfNull(schemaContext);
+            ThrowHelpers.ThrowIfNull(schemaContext);
             MethodInfo accessor = getter ?? setter;
             if (accessor == null)
             {
@@ -134,8 +134,8 @@ namespace System.Xaml
         internal XamlMember(string attachableEventName, MethodInfo adder, XamlSchemaContext schemaContext,
             XamlMemberInvoker invoker, MemberReflector reflector)
         {
-            ArgumentNullException.ThrowIfNull(adder);
-            ArgumentNullException.ThrowIfNull(schemaContext);
+            ThrowHelpers.ThrowIfNull(adder);
+            ThrowHelpers.ThrowIfNull(schemaContext);
             ValidateSetter(adder, "adder");
 
             _name = attachableEventName ?? throw new ArgumentNullException(nameof(attachableEventName));

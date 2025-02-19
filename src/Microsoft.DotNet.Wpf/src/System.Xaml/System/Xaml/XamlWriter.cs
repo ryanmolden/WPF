@@ -19,7 +19,7 @@ namespace System.Xaml
 
         public void WriteNode(XamlReader reader)
         {
-            ArgumentNullException.ThrowIfNull(reader);
+            ThrowHelpers.ThrowIfNull(reader);
 
             switch (reader.NodeType)
             {

@@ -12,8 +12,8 @@ namespace System.Windows.Markup
 
         public XamlDeferLoadAttribute(Type loaderType, Type contentType)
         {
-            ArgumentNullException.ThrowIfNull(loaderType);
-            ArgumentNullException.ThrowIfNull(contentType);
+            ThrowHelpers.ThrowIfNull(loaderType);
+            ThrowHelpers.ThrowIfNull(contentType);
             _loaderTypeName = loaderType.AssemblyQualifiedName;
             _contentTypeName = contentType.AssemblyQualifiedName;
             LoaderType = loaderType;

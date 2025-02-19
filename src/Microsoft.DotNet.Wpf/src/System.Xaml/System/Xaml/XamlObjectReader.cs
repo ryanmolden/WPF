@@ -2850,7 +2850,7 @@ namespace System.Xaml
 
             public string GetName(object value)
             {
-                ArgumentNullException.ThrowIfNull(value);
+                ThrowHelpers.ThrowIfNull(value);
                 return context.GetName(value);
             }
         }

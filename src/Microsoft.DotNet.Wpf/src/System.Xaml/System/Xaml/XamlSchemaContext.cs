@@ -136,7 +136,7 @@ namespace System.Xaml
 
         public virtual string GetPreferredPrefix(string xmlns)
         {
-            ArgumentNullException.ThrowIfNull(xmlns);
+            ThrowHelpers.ThrowIfNull(xmlns);
             UpdateXmlNsInfo();
             if (_preferredPrefixes == null)
             {
@@ -247,8 +247,8 @@ namespace System.Xaml
 
         public virtual XamlDirective GetXamlDirective(string xamlNamespace, string name)
         {
-            ArgumentNullException.ThrowIfNull(xamlNamespace);
-            ArgumentNullException.ThrowIfNull(name);
+            ThrowHelpers.ThrowIfNull(xamlNamespace);
+            ThrowHelpers.ThrowIfNull(name);
 
             if (XamlLanguage.XamlNamespaces.Contains(xamlNamespace))
             {
@@ -263,7 +263,7 @@ namespace System.Xaml
 
         public XamlType GetXamlType(XamlTypeName xamlTypeName)
         {
-            ArgumentNullException.ThrowIfNull(xamlTypeName);
+            ThrowHelpers.ThrowIfNull(xamlTypeName);
             if (xamlTypeName.Name == null)
             {
                 throw new ArgumentException(SR.Format(SR.ReferenceIsNull, "xamlTypeName.Name"), nameof(xamlTypeName));
@@ -295,8 +295,8 @@ namespace System.Xaml
 
         protected internal virtual XamlType GetXamlType(string xamlNamespace, string name, params XamlType[] typeArguments)
         {
-            ArgumentNullException.ThrowIfNull(xamlNamespace);
-            ArgumentNullException.ThrowIfNull(name);
+            ThrowHelpers.ThrowIfNull(xamlNamespace);
+            ThrowHelpers.ThrowIfNull(name);
             if (typeArguments != null)
             {
                 foreach (XamlType typeArg in typeArguments)
@@ -364,7 +364,7 @@ namespace System.Xaml
         // Note: this method doesn't apply transitive subsuming, the caller is responsible for doing that.
         public virtual bool TryGetCompatibleXamlNamespace(string xamlNamespace, out string compatibleNamespace)
         {
-            ArgumentNullException.ThrowIfNull(xamlNamespace);
+            ThrowHelpers.ThrowIfNull(xamlNamespace);
 
             // Note: this method has order-dependent behavior for backcompat.
             // When we look up a namespace, we throw if it has conflicting XmlnsCompatAttributes.
@@ -521,14 +521,14 @@ namespace System.Xaml
 
         public virtual XamlType GetXamlType(Type type)
         {
-            ArgumentNullException.ThrowIfNull(type);
+            ThrowHelpers.ThrowIfNull(type);
 
             return GetXamlType(type, XamlLanguage.TypeAlias(type));
         }
 
         internal XamlType GetXamlType(Type type, string alias)
         {
-            ArgumentNullException.ThrowIfNull(type);
+            ThrowHelpers.ThrowIfNull(type);
             XamlType xamlType = null;
             if (!MasterTypeList.TryGetValue(type, out xamlType))
             {
@@ -545,7 +545,7 @@ namespace System.Xaml
         /// </summary>
         internal Dictionary<string, SpecialBracketCharacters> InitBracketCharacterCacheForType(XamlType type)
         {
-            ArgumentNullException.ThrowIfNull(type);
+            ThrowHelpers.ThrowIfNull(type);
 
             Dictionary<string, SpecialBracketCharacters> bracketCharacterCache = null;
             if (type.IsMarkupExtension)

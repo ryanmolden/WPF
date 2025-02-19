@@ -80,7 +80,7 @@ namespace System.Windows.Markup
 
                 // Get the IXamlTypeResolver from the service provider
 
-                ArgumentNullException.ThrowIfNull(serviceProvider);
+                ThrowHelpers.ThrowIfNull(serviceProvider);
 
                 IXamlTypeResolver xamlTypeResolver = serviceProvider.GetService(typeof(IXamlTypeResolver)) as IXamlTypeResolver;
                 if (xamlTypeResolver == null)

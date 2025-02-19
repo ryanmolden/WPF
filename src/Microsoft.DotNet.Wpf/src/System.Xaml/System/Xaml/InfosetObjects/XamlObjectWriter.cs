@@ -20,6 +20,8 @@ namespace System.Xaml
 {
     public class XamlObjectWriter : XamlWriter, IXamlLineInfoConsumer, IAddLineInfo, ICheckIfInitialized
     {
+        private const string Comma = ",";
+
         object _lastInstance;
         bool _inDispose;
         ObjectWriterContext _context;
@@ -47,19 +49,19 @@ namespace System.Xaml
 
         public XamlObjectWriter(XamlSchemaContext schemaContext)
         {
-            ArgumentNullException.ThrowIfNull(schemaContext);
+            ThrowHelpers.ThrowIfNull(schemaContext);
             Initialize(schemaContext, (XamlSavedContext)null, (XamlObjectWriterSettings)null);
         }
 
         public XamlObjectWriter(XamlSchemaContext schemaContext, XamlObjectWriterSettings settings)
         {
-            ArgumentNullException.ThrowIfNull(schemaContext);
+            ThrowHelpers.ThrowIfNull(schemaContext);
             Initialize(schemaContext, (XamlSavedContext)null, settings);
         }
 
         internal XamlObjectWriter(XamlSavedContext savedContext, XamlObjectWriterSettings settings)
         {
-            ArgumentNullException.ThrowIfNull(savedContext);
+            ThrowHelpers.ThrowIfNull(savedContext);
             if (savedContext.SchemaContext == null)
             {
                 throw new ArgumentException(SR.SavedContextSchemaContextNull, nameof(savedContext));
@@ -72,7 +74,7 @@ namespace System.Xaml
             _inDispose = false;
             //ObjectWriter must be passed in a non-null SchemaContext.  We check that here, since the CreateContext method
             //will create one if a null SchemaContext was passed in.
-            ArgumentNullException.ThrowIfNull(schemaContext);
+            ThrowHelpers.ThrowIfNull(schemaContext);
             if (savedContext != null && schemaContext != savedContext.SchemaContext)
             {
                 throw new ArgumentException(SR.SavedContextSchemaContextMismatch, nameof(schemaContext));
@@ -310,7 +312,7 @@ namespace System.Xaml
         public override void WriteStartObject(XamlType xamlType)
         {
             ThrowIfDisposed();
-            ArgumentNullException.ThrowIfNull(xamlType);
+            ThrowHelpers.ThrowIfNull(xamlType);
 
             // Deferring Checking
             //
@@ -561,7 +563,7 @@ namespace System.Xaml
         public override void WriteStartMember(XamlMember property)
         {
             ThrowIfDisposed();
-            ArgumentNullException.ThrowIfNull(property);
+            ThrowHelpers.ThrowIfNull(property);
 
             // Deferring Checking
             //
@@ -876,7 +878,7 @@ namespace System.Xaml
         public override void WriteNamespace(NamespaceDeclaration namespaceDeclaration)
         {
             ThrowIfDisposed();
-            ArgumentNullException.ThrowIfNull(namespaceDeclaration);
+            ThrowHelpers.ThrowIfNull(namespaceDeclaration);
             if(namespaceDeclaration.Prefix == null)
             {
                 throw new ArgumentException(SR.NamespaceDeclarationPrefixCannotBeNull);
@@ -1967,7 +1969,7 @@ namespace System.Xaml
                 if (value is NameFixupToken && parentProperty != XamlLanguage.Items)
                 {
                     NameFixupToken token = value as NameFixupToken;
-                    string names = String.Join(',', token.NeededNames.ToArray());
+                    string names = String.Join(Comma, token.NeededNames.ToArray());
                     string msg = SR.Format(SR.ForwardRefDirectives, names);
                     throw ctx.WithLineInfo(new XamlObjectWriterException(msg));
                 }
@@ -2004,7 +2006,7 @@ namespace System.Xaml
                             // Only the key directive may be assigned a reference.
                             if (parentProperty != XamlLanguage.Key)
                             {
-                                string names = String.Join(',', token.NeededNames.ToArray());
+                                string names = String.Join(Comma, token.NeededNames.ToArray());
                                 string msg = SR.Format(SR.ForwardRefDirectives, names);
                                 throw ctx.WithLineInfo(new XamlObjectWriterException(msg));
                             }
@@ -2057,7 +2059,7 @@ namespace System.Xaml
                                 if (parentProperty != XamlLanguage.Key)
                                 {
                                     NameFixupToken token = (NameFixupToken)value;
-                                    string names = String.Join(',', token.NeededNames.ToArray());
+                                    string names = String.Join(Comma, token.NeededNames.ToArray());
                                     string msg = SR.Format(SR.ForwardRefDirectives, names);
                                     throw ctx.WithLineInfo(new XamlObjectWriterException(msg));
                                 }

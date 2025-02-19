@@ -34,8 +34,8 @@ namespace System.Xaml
             XamlValueConverter<TypeConverter> typeConverter, AllowedMemberLocations allowedLocation)
             : base(name, new MemberReflector(xamlType, typeConverter))
         {
-            ArgumentNullException.ThrowIfNull(xamlType);
-            ArgumentNullException.ThrowIfNull(xamlNamespaces);
+            ThrowHelpers.ThrowIfNull(xamlType);
+            ThrowHelpers.ThrowIfNull(xamlNamespaces);
 
             List<string> nsList = new List<string>(xamlNamespaces);
             foreach (string ns in nsList)
@@ -53,7 +53,7 @@ namespace System.Xaml
         public XamlDirective(string xamlNamespace, string name)
             :base(name, null)
         {
-            ArgumentNullException.ThrowIfNull(xamlNamespace);
+            ThrowHelpers.ThrowIfNull(xamlNamespace);
 
             _xamlNamespaces = new ReadOnlyCollection<string>(new string[] { xamlNamespace });
             _allowedLocation = AllowedMemberLocations.Any;
