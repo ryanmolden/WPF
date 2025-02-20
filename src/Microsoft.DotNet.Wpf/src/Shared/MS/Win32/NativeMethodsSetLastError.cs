@@ -31,6 +31,10 @@ namespace MS.Internal.Drt
     using System.Windows;
     using MS.Win32;
 
+#if NETFX
+    using NativeMethods = MS.Win32.NativeMethods;
+#endif
+
     internal static class NativeMethodsSetLastError
     {
         private const string PresentationNativeDll = "PresentationNative_cor3.dll";

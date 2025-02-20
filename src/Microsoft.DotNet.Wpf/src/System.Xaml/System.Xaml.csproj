@@ -41,6 +41,9 @@
     <Compile Include="$(WpfSharedDir)System\DictionaryHelpers.cs">
       <Link>Common\WPF\System\DictionaryHelpers.cs</Link>
     </Compile>
+    <Compile Include="$(WpfSharedDir)System\ReferenceEqualityComparer.cs">
+      <Link>Common\WPF\System\ReferenceEqualityComparer.cs</Link>
+    </Compile>
     <Compile Include="$(WpfSharedDir)System\ThrowHelpers.cs">
       <Link>Common\WPF\System\ThrowHelpers.cs</Link>
     </Compile>

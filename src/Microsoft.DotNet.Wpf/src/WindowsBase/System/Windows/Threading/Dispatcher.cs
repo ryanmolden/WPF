@@ -225,7 +225,9 @@ namespace System.Windows.Threading
             if(!CheckAccess())
             {
                 // Used to inline VerifyAccess.
+#if NET
                 [DoesNotReturn]
+#endif
                 [MethodImpl(MethodImplOptions.NoInlining)]
                 static void ThrowVerifyAccess()
                     => throw new InvalidOperationException(SR.VerifyAccess);

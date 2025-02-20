@@ -105,13 +105,13 @@ namespace MS.Internal
                 if (semiColonIndex == -1)
                 {
                     // Parse content type similar to - type/subtype
-                    ParseTypeAndSubType(contentType);
+                    ParseTypeAndSubType(contentType.AsSpan());
                 }
                 else
                 {
                     // Parse content type similar to - type/subtype ; param1=value1 ; param2=value2 ; param3="value3"
                     ParseTypeAndSubType(contentType.AsSpan(0, semiColonIndex));
-                    ParseParameterAndValue(contentType.Substring(semiColonIndex));
+                    ParseParameterAndValue(contentType.Substring(semiColonIndex).AsSpan());
                 }
             }
 

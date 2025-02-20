@@ -6,6 +6,13 @@
 // This file specifies various assembly level attributes.
 //
 
+#if NETFX
+global using FriendAccessAllowedAttribute = MS.Internal.WindowsBase.FriendAccessAllowedAttribute;
+global using NativeMethods = MS.Win32.NativeMethods;
+global using Signature = System.Security.Cryptography.Xml.Signature;
+global using UnsafeNativeMethods = MS.Win32.UnsafeNativeMethods;
+#endif
+
 using System;
 using MS.Internal.WindowsBase;
 using System.Resources;
@@ -85,6 +92,7 @@ using System.Windows.Markup;
 [assembly:TypeForwardedTo(typeof(System.IO.Packaging.PackageRelationshipSelector))] 
 [assembly:TypeForwardedTo(typeof(System.IO.Packaging.PackageRelationshipSelectorType))]
 
+#if NET
 #pragma warning disable SYSLIB0003 // Type or member is obsolete
 [assembly: TypeForwardedTo(typeof(System.Security.Permissions.MediaPermissionAudio))]
 [assembly: TypeForwardedTo(typeof(System.Security.Permissions.MediaPermissionVideo))]
@@ -95,6 +103,7 @@ using System.Windows.Markup;
 [assembly: TypeForwardedTo(typeof(System.Security.Permissions.WebBrowserPermission))]
 [assembly: TypeForwardedTo(typeof(System.Security.Permissions.WebBrowserPermissionAttribute))]
 #pragma warning restore SYSLIB0003 // Type or member is obsolete
+#endif
 
 [assembly: TypeForwardedTo(typeof(System.Collections.ObjectModel.ReadOnlyObservableCollection<>))]
 [assembly: TypeForwardedTo(typeof(System.Collections.ObjectModel.ObservableCollection<>))]

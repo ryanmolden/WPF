@@ -109,8 +109,11 @@ namespace MS.Internal.IO.Packaging.CompoundFile
         /// Returns a string that represents the current VersionPair object.
         /// The string is of the form (major,minor).
         /// </summary>
+#if NET
         public override string ToString() => string.Create(null, stackalloc char[64], $"({_major},{_minor})");
-
+#else
+        public override string ToString() => $"({_major},{_minor})";
+#endif
 #endif
 
         #endregion
