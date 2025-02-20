@@ -28,8 +28,8 @@
   </ItemGroup>
   <PropertyGroup>
     <UseDestinationLibFolder>true</UseDestinationLibFolder>
-    <TargetFrameworkIdentifier Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'">.NETCoreApp</TargetFrameworkIdentifier>
-    <TargetFrameworkIdentifier Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'">.NETFramework</TargetFrameworkIdentifier>
+    <TargetFrameworkIdentifier>.NETCoreApp</TargetFrameworkIdentifier>
+    <TargetFrameworkIdentifier Condition="$(TargetFramework.StartsWith('net4'))!='true'">.NETFramework</TargetFrameworkIdentifier>
     <RestoreProjectStyle>Unknown</RestoreProjectStyle>
     <!-- 
       Opting out of this to ensure _WindowsBaseReference is used as 
@@ -93,7 +93,7 @@
     PackageReferences to pass to CppCliHelper target
   -->
   <ItemGroup>
-    <AdditionalPackageReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
+    <AdditionalPackageReference Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
   </ItemGroup>
   <!--
     Ignore ijwhost.dll during packaging
@@ -129,9 +129,11 @@
       <SourceRevisionId Condition="'$(SourceRevisionId)' == ''">unknownrev</SourceRevisionId>
     </PropertyGroup>
   </Target>
-  <Target Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'" Name="RemoveNetFxReferences" BeforeTargets="ResolveAssemblyReferences">
+  <Target Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'" Name="FixAssemblyReferences" BeforeTargets="ResolveAssemblyReferences">
     <ItemGroup>
       <Reference Remove="$(FrameworkPathOverride)\WindowsBase.dll" />
+      <Reference Remove="$(PkgSystem_IO_Packaging)\lib\net462\System.IO.Packaging.dll" />
+      <Reference Include="$(PkgSystem_IO_Packaging)\lib\netstandard2.0\System.IO.Packaging.dll" />
     </ItemGroup>
   </Target>
 </Project>
