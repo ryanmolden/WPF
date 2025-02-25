@@ -661,7 +661,11 @@ namespace MS.Internal.FontCache
             {
                 // No fragment separator. The entire string is a family name so convert to uppercase
                 // and add a fragment separator at the beginning.
+#if NET
                 return string.Concat("#", fontFamilyReference.AsSpan(startIndex, length)).ToUpperInvariant();
+#else
+                return string.Concat("#", fontFamilyReference.Substring(startIndex, length)).ToUpperInvariant();
+#endif
             }
             else if (fragmentIndex + 1 == startIndex + length)
             {

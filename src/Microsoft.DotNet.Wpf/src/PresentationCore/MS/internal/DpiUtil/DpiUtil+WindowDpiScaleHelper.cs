@@ -11,6 +11,7 @@ namespace MS.Internal
     using System.Security;
 
     using MONITOR_DPI_TYPE = MS.Win32.NativeMethods.MONITOR_DPI_TYPE;
+    using NativeMethods = MS.Win32.NativeMethods;
 
     /// <content>
     /// Contains definition of <see cref="WindowDpiScaleHelper"/>

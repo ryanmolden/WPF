@@ -797,11 +797,20 @@ namespace MS.Internal.IO.Packaging
             }
 
             // Get the first byte offset of the range (XXX)
+#if NET
             int firstByteOffset = Int32.Parse(contentRange.AsSpan(ByteRangeUnit.Length,
                                                                         index - ByteRangeUnit.Length),
                                                 NumberStyles.None, NumberFormatInfo.InvariantInfo);
 
             ReadOnlySpan<char> contentRangeSpan = contentRange.AsSpan(index + 1);
+#else
+            int firstByteOffset = Int32.Parse(contentRange.Substring(ByteRangeUnit.Length,
+                                                                        index - ByteRangeUnit.Length),
+                                                NumberStyles.None, NumberFormatInfo.InvariantInfo);
+
+            string contentRangeSpan = contentRange.Substring(index + 1);
+#endif
+
             // ContentRange: YYY/ZZZ
             index = contentRangeSpan.IndexOf('/');
 
@@ -811,11 +820,21 @@ namespace MS.Internal.IO.Packaging
             }
 
             // Get the last byte offset of the range (YYY)
+#if NET
             int lastByteOffset = Int32.Parse(contentRangeSpan.Slice(0, index), NumberStyles.None, NumberFormatInfo.InvariantInfo);
+#else
+            int lastByteOffset = Int32.Parse(contentRangeSpan.Substring(0, index), NumberStyles.None, NumberFormatInfo.InvariantInfo);
+#endif
 
             // Get the instance length
             // ContentRange: ZZZ
+
+#if NET
             contentRangeSpan = contentRangeSpan.Slice(index + 1);
+#else
+            contentRangeSpan = contentRangeSpan.Substring(index + 1);
+#endif
+
             if (!contentRangeSpan.Equals("*", StringComparison.Ordinal))
             {
                 // Note: for firstByteOffset and lastByteOffset, we are using Int32.Parse to make sure Int32.Parse to throw

@@ -109,7 +109,12 @@ namespace System.Windows.Input
 
             if (null != stringSource)
             {
+#if NET
                 ReadOnlySpan<char> spanSource = stringSource;
+#else
+                ReadOnlySpan<char> spanSource = stringSource.AsSpan();
+#endif
+
                 spanSource = spanSource.Trim();
 
                 int periodPos = spanSource.LastIndexOf('.');
@@ -120,7 +125,11 @@ namespace System.Windows.Input
                 
                 if (!spanSource.IsEmpty)
                 {
+#if NET
                     sn = Enum.Parse<InputScopeNameValue>(spanSource);
+#else
+                    sn = (InputScopeNameValue)Enum.Parse(typeof(InputScopeNameValue), spanSource.ToString());
+#endif
                 }
             }
             

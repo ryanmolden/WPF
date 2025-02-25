@@ -6,9 +6,17 @@
 // This file specifies various assembly level attributes.
 //
 
+#if NETFX
+global using NativeMethods = MS.Win32.NativeMethods;
+#endif
+
 using MS.Internal.PresentationCore;
 using System;
 using System.Runtime.CompilerServices;
+
+#if NETFX
+[assembly: FakeModuleInitializer(typeof(ModuleInitializer))]
+#endif
 
 [assembly:InternalsVisibleTo(BuildInfo.PresentationFramework)]
 [assembly:InternalsVisibleTo(BuildInfo.ReachFramework)]

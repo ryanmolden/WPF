@@ -474,7 +474,11 @@ namespace MS.Internal.FontCache
                 // and at every locale name this font face has.
                 foreach (KeyValuePair<CultureInfo, string> name in font.FaceNames)
                 {
+#if NET
                     if (faceName.Equals(name.Value, StringComparison.OrdinalIgnoreCase))
+#else
+                    if (faceName == name.Value.AsSpan())
+#endif
                     {
                         return font;
                     }

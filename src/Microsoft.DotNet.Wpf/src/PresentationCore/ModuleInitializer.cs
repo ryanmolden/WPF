@@ -3,6 +3,17 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
+#if NETFX
+namespace MS.Internal.PresentationCore
+{
+    [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
+    internal class FakeModuleInitializerAttribute : Attribute
+    {
+        public FakeModuleInitializerAttribute(Type type) { }
+    }
+}
+#endif
+
 internal static class ModuleInitializer
 {
     /// <summary>
@@ -14,11 +25,16 @@ internal static class ModuleInitializer
     /// as the module constructor for DirectWriteForwarder would do this anyway.
     /// </summary>
 #pragma warning disable CA2255
+#if NET
     [ModuleInitializer]
     public static void Initialize()
     {
         IsProcessDpiAware();
 
+#else
+    static ModuleInitializer()
+    {
+#endif
         MS.Internal.NativeWPFDLLLoader.LoadDwrite();
     }
 #pragma warning restore CA2255

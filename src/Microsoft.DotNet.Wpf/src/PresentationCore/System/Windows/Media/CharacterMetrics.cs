@@ -167,7 +167,12 @@ namespace System.Windows.Media
                 if (k > i)
                 {
                     // Non-empty field; convert it to double.
+#if NET
                     ReadOnlySpan<char> field = s.AsSpan(i, k - i);
+#else
+                    string field = s.Substring(i, k - i);
+#endif
+
                     if (!double.TryParse(
                         field,
                         NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign,

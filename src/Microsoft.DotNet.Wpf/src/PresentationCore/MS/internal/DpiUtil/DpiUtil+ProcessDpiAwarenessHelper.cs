@@ -6,13 +6,18 @@
 namespace MS.Internal
 {
     using Microsoft.Win32.SafeHandles;
-    using MS.Win32;
     using System;
     using System.Diagnostics;
     using System.Runtime.InteropServices;
     using System.Security;
+    using MS.Win32;
+
+#if NETFX
+    using System.Runtime.Versioning;
+#endif
 
     using PROCESS_DPI_AWARENESS = MS.Win32.NativeMethods.PROCESS_DPI_AWARENESS;
+    using NativeMethods = MS.Win32.NativeMethods;
 
     /// <content>
     /// Contains definition of <see cref="ProcessDpiAwarenessHelper"/>
@@ -109,6 +114,37 @@ namespace MS.Internal
                     return SafeNativeMethods.GetProcessDpiAwareness(new HandleRef(null, hProcess.DangerousGetHandle()));
                 }
             }
+
+#if NETFX
+            [System.Security.SecurityCritical]
+            internal sealed class SafeProcessHandle : SafeHandle
+            {
+                // 0 is an Invalid Handle
+                public SafeProcessHandle(IntPtr handle, bool ownsHandle = true) : base(IntPtr.Zero, ownsHandle)
+                {
+                    SetHandle(handle);
+                }
+
+                public override bool IsInvalid
+                {
+                    [System.Security.SecurityCritical]
+                    get { return handle.IsNull() || handle == new IntPtr(-1); }
+                }
+
+                internal static SafeProcessHandle InvalidHandle
+                {
+                    get { return new SafeProcessHandle(IntPtr.Zero); }
+                }
+
+                [System.Security.SecurityCritical]
+                [ResourceExposure(ResourceScope.None)]
+                [ResourceConsumption(ResourceScope.Machine, ResourceScope.Machine)]
+                override protected bool ReleaseHandle()
+                {
+                    return MS.Win32.UnsafeNativeMethods.CloseHandleNoThrow(new HandleRef(this, handle));
+                }
+            }
+#endif
         }
     }
 }

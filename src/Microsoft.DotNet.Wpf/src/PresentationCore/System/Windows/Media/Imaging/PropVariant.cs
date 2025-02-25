@@ -364,7 +364,12 @@ namespace System.Windows.Media.Imaging
                 else if (value is char)
                 {
                     varType = (ushort)VarEnum.VT_LPSTR;
+
+#if NET
                     pszVal = Marshal.StringToCoTaskMemAnsi(new String(stackalloc char[] { (char)value }));
+#else
+                    pszVal = Marshal.StringToCoTaskMemAnsi(new String((char)value, 1));
+#endif
                 }
                 else if (type == typeof(short))
                 {

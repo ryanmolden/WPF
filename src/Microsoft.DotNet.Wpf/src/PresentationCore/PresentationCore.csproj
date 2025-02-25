@@ -12,7 +12,6 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    
     <EnableDefaultItems>false</EnableDefaultItems>
   </PropertyGroup>
 
@@ -91,6 +90,8 @@
     <Compile Include="$(WpfSharedDir)\MS\Utility\BindUriHelper.cs" />
     <Compile Include="$(WpfSharedDir)\MS\Utility\PerfService.cs" />
     <Compile Include="$(WpfSharedDir)\MS\Utility\Maps.cs" />
+    <Compile Include="$(WpfSharedDir)\System\DictionaryHelpers.cs" />
+    <Compile Include="$(WpfSharedDir)\System\ThrowHelpers.cs" />
     <Compile Include="$(WpfSharedDir)\System\IO\FileHelper.cs" />
     <Compile Include="$(WpfSharedDir)\System\Windows\Ink\KnownIds.cs" />
     <Compile Include="$(WpfSharedDir)\System\Windows\Interop\OperatingSystemVersion.cs" />
@@ -1406,8 +1407,10 @@
 
   <ItemGroup>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="$(SystemConfigurationConfigurationManagerPackageVersion)" />
-    <PackageReference Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
-    <PackageReference Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'" Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" ExcludeAssets="compile" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'" Include="System.Memory" Version="$(SystemMemoryPackageVersion)" />
   </ItemGroup>
 
   <ItemGroup>
@@ -1424,6 +1427,16 @@
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'">
+    <Reference Include="$(PkgSystem_IO_Packaging)\lib\netstandard2.0\System.IO.Packaging.dll" />
+  </ItemGroup>
+
+  <Target Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'" Name="RemoveNetFxReferences" BeforeTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <Reference Remove="WindowsBase" />
+    </ItemGroup>
+  </Target>
 
   <!--
     Need Microsoft.WinFX.targets to embed *.compositefont

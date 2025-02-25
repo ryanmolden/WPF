@@ -91,7 +91,7 @@ namespace System.Windows.Media
         /// </summary>
         internal void AddEvent(TEventHandler handler)
         {
-            ArgumentNullException.ThrowIfNull(handler);
+            ThrowHelpers.ThrowIfNull(handler);
 
             if (_delegates is Dictionary<TEventHandler, int> delegates)
             {
@@ -111,7 +111,7 @@ namespace System.Windows.Media
         /// </summary>
         internal void RemoveEvent(TEventHandler handler)
         {
-            ArgumentNullException.ThrowIfNull(handler);
+            ThrowHelpers.ThrowIfNull(handler);
 
             if (_delegates is Dictionary<TEventHandler, int> delegates &&
                 delegates.TryGetValue(handler, out int refCount))

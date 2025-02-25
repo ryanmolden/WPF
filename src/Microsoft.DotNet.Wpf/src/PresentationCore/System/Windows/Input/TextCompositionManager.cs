@@ -23,6 +23,7 @@ using MS.Internal ;
 using MS.Internal.PresentationCore;                        // SecurityHelper
 
 using SR=MS.Internal.PresentationCore.SR;
+using UnsafeNativeMethods = MS.Win32.UnsafeNativeMethods;
 
 namespace System.Windows.Input
 {
