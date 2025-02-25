@@ -12,11 +12,12 @@ namespace MS.Internal.Text
     /// </summary>
     internal static class InternalEncoding
     {
-
+#if NET
         static InternalEncoding()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
+#endif
 
         internal static Encoding GetEncoding(int codepage)
         {
