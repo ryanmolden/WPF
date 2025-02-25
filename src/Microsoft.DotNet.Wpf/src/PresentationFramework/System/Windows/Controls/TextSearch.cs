@@ -340,11 +340,19 @@ namespace System.Windows.Controls
                 CompareOptions options = ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None;
                 do
                 {
+#if NET
                     ReadOnlySpan<char> temp;
+#else
+                    string temp;
+#endif
 
                     if (i >= 1)
                     {
+#if NET
                         temp = matchedText.AsSpan(0, i);
+#else
+                        temp = matchedText.Substring(0, i);
+#endif
                         if (compareInfo.Compare(newText, temp, options) == 0)
                         {
                             matchedPrefixLength = i;
@@ -354,7 +362,11 @@ namespace System.Windows.Controls
                     }
                     if (j <= matchedText.Length)
                     {
+#if NET
                         temp = matchedText.AsSpan(0, j);
+#else
+                        temp = matchedText.Substring(0, j);
+#endif
                         if (compareInfo.Compare(newText, temp, options) == 0)
                         {
                             matchedPrefixLength = j;

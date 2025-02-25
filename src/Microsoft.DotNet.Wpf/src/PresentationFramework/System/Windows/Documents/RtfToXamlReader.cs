@@ -232,7 +232,14 @@ namespace System.Windows.Documents
             }
         }
 
+#if NETFX
         internal static bool StringToDouble(ReadOnlySpan<char> s, ref double d)
+            => StringToDouble(s.ToString(), ref d);
+
+        internal static bool StringToDouble(string s, ref double d)
+#else
+        internal static bool StringToDouble(ReadOnlySpan<char> s, ref double d)
+#endif
         {
             bool ret = true;
 
@@ -253,7 +260,14 @@ namespace System.Windows.Documents
             return ret;
         }
 
+#if NETFX
+        internal static bool StringToInt(ReadOnlySpan<char> s, ref int i) =>
+            StringToInt(s.ToString(), ref i);
+
+        internal static bool StringToInt(string s, ref int i)
+#else
         internal static bool StringToInt(ReadOnlySpan<char> s, ref int i)
+#endif
         {
             bool ret = true;
 
@@ -275,7 +289,7 @@ namespace System.Windows.Documents
 
         internal static string StringToXMLAttribute(string s)
         {
-            if (!s.Contains('"'))
+            if (!s.Contains("\""))
             {
                 return s;
             }
@@ -283,7 +297,14 @@ namespace System.Windows.Documents
             return s.Replace("\"", "&quot;");
         }
 
+#if NETFX
+        internal static bool HexStringToInt(ReadOnlySpan<char> s, ref int i) =>
+            HexStringToInt(s.ToString(), ref i);
+
+        internal static bool HexStringToInt(string s, ref int i)
+#else
         internal static bool HexStringToInt(ReadOnlySpan<char> s, ref int i)
+#endif
         {
             bool ret = true;
 
@@ -1957,8 +1978,13 @@ namespace System.Windows.Documents
 
         internal string RTFEncoding =>
             IsNone ? "\\brdrnone" :
+#if NET
             CF < 0 ? string.Create(CultureInfo.InvariantCulture, stackalloc char[128], $"\\brdrs\\brdrw{EffectiveWidth}") :
-            string.Create(CultureInfo.InvariantCulture, stackalloc char[128], $"\\brdrs\\brdrw{EffectiveWidth}\\brdrcf{CF}");
+                     string.Create(CultureInfo.InvariantCulture, stackalloc char[128], $"\\brdrs\\brdrw{EffectiveWidth}\\brdrcf{CF}");
+#else
+            CF < 0 ? $"\\brdrs\\brdrw{EffectiveWidth}" :
+                     $"\\brdrs\\brdrw{EffectiveWidth}\\brdrcf{CF}";
+#endif
 
         static internal BorderFormat EmptyBorderFormat
         {
@@ -3747,7 +3773,11 @@ namespace System.Windows.Documents
                                         if (lhs_name.Length > rhs_name.Length)
                                         {
                                             ReadOnlySpan<char> s = lhs_name.AsSpan(0, rhs_name.Length);
+#if NET
                                             if (s.Equals(rhs_name, StringComparison.OrdinalIgnoreCase))
+#else
+                                            if (s.Equals(rhs_name.AsSpan(), StringComparison.OrdinalIgnoreCase))
+#endif
                                             {
                                                 bAdd = true;
                                             }
@@ -4980,7 +5010,11 @@ namespace System.Windows.Documents
                 if (currentIndex != index)
                 {
                     ReadOnlySpan<char> substring = text.AsSpan(index, currentIndex - index);
+#if NET
                     xamlStringBuilder.Append(substring);
+#else
+                    xamlStringBuilder.Append(substring.ToString());
+#endif
                 }
                 if (currentIndex < text.Length)
                 {
@@ -8556,7 +8590,11 @@ namespace System.Windows.Documents
 
                     try
                     {
+#if NET
                         d = double.Parse(ptString, provider: CultureInfo.InvariantCulture);
+#else
+                        d = double.Parse(ptString.ToString(), provider: CultureInfo.InvariantCulture);
+#endif
                     }
                     catch (System.OverflowException)
                     {

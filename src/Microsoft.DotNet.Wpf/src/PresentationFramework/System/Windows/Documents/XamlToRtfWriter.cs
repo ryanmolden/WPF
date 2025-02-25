@@ -3542,6 +3542,11 @@ namespace System.Windows.Documents
                 return true;
             }
 
+#if NETFX
+            internal static bool ConvertToFontSize(ConverterState converterState, string s, ref double d) =>
+                ConvertToFontSize(converterState, s.AsSpan(), ref d);
+#endif
+
             internal static bool ConvertToFontSize(ConverterState converterState, ReadOnlySpan<char> s, ref double d)
             {
                 if (s.Length == 0)
@@ -3807,6 +3812,11 @@ namespace System.Windows.Documents
                 }
                 return ret;
             }
+
+#if NETFX
+            internal static bool ConvertToThickness(ConverterState converterState, string thickness, ref XamlThickness xthickness) =>
+                ConvertToThickness(converterState, thickness.AsSpan(), ref xthickness);
+#endif
 
             internal static bool ConvertToThickness(ConverterState converterState, ReadOnlySpan<char> thickness, ref XamlThickness xthickness)
             {

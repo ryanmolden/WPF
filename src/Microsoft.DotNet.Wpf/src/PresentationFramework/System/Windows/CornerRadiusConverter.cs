@@ -176,7 +176,11 @@ namespace System.Windows
         {
             char listSeparator = TokenizerHelper.GetNumericListSeparator(cultureInfo);
 
+#if NET
             return string.Create(cultureInfo, stackalloc char[64], $"{cr.TopLeft}{listSeparator}{cr.TopRight}{listSeparator}{cr.BottomRight}{listSeparator}{cr.BottomLeft}");
+#else
+            return $"{cr.TopLeft}{listSeparator}{cr.TopRight}{listSeparator}{cr.BottomRight}{listSeparator}{cr.BottomLeft}";
+#endif
         }
 
         static internal CornerRadius FromString(string s, CultureInfo cultureInfo)

@@ -1129,7 +1129,11 @@ namespace System.Windows.Controls
                 int index = aqn.LastIndexOf(PublicKeyToken);
                 if (index >= 0)
                 {
+#if NET
                     ReadOnlySpan<char> token = aqn.AsSpan(index + PublicKeyToken.Length);
+#else
+                    string token = aqn.Substring(index + PublicKeyToken.Length);
+#endif
                     if (token.Equals(MS.Internal.PresentationFramework.BuildInfo.WCP_PUBLIC_KEY_TOKEN, StringComparison.OrdinalIgnoreCase) ||
                         token.Equals(MS.Internal.PresentationFramework.BuildInfo.DEVDIV_PUBLIC_KEY_TOKEN, StringComparison.OrdinalIgnoreCase))
                     {

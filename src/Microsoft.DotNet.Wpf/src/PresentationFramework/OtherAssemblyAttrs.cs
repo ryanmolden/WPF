@@ -6,6 +6,11 @@
 // This file specifies various assembly level attributes.
 //
 
+#if NETFX
+global using NativeMethods = MS.Win32.NativeMethods;
+global using UnsafeNativeMethods = MS.Win32.UnsafeNativeMethods;
+#endif
+
 using MS.Internal.PresentationFramework;
 using System;
 using System.Resources;

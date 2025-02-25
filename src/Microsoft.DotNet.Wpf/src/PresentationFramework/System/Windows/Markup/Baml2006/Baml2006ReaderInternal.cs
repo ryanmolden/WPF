@@ -42,7 +42,11 @@ namespace System.Windows.Baml2006
         #endregion
 
         // Return the full assembly name, this includes the assembly version
+#if NET
         internal override ReadOnlySpan<char> GetAssemblyNameForNamespace(Assembly asm)
+#else
+        internal override string GetAssemblyNameForNamespace(Assembly asm)
+#endif
         {
             return asm.FullName;
         }

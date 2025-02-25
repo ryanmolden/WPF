@@ -726,7 +726,11 @@ namespace System.Windows.Controls
                                     if (ShouldPreserveUserEnteredPrefix)
                                     {
                                         // Retain the user entered prefix in the matched text.
+#if NET
                                         matchedText = String.Concat(newText, matchedText.AsSpan(matchedTextInfo.MatchedPrefixLength));
+#else
+                                        matchedText = String.Concat(newText, matchedText.Substring(matchedTextInfo.MatchedPrefixLength));
+#endif
                                     }
 
                                     // If there's an IME, do the replacement asynchronously so that

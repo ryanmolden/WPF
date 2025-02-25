@@ -164,11 +164,19 @@ namespace MS.Internal.PtsHost
             if (number < b)
             {
                 // Optimize common case of single-digit numbers.
+#if NET
                 return new string(stackalloc char[2] // digit + suffix
                 {
                     numericSymbols[number],
                     NumberSuffix
                 });
+#else
+                return new string(new char[2]
+                {
+                    numericSymbols[number],
+                    NumberSuffix
+                });
+#endif
             }
             else
             {
@@ -190,6 +198,7 @@ namespace MS.Internal.PtsHost
                 }
 
                 // Build string in reverse order starting with suffix.
+#if NET
                 return string.Create(digits + 1, (numericSymbols, number, b, disjoint), (result, state) => // digits + suffix
                 {
                     result[result.Length - 1] = NumberSuffix;
@@ -199,6 +208,25 @@ namespace MS.Internal.PtsHost
                         result[i] = state.numericSymbols[remainder];
                     }
                 });
+#else
+                return Reverse(digits + 1, numericSymbols, number, b, disjoint);
+
+                // Local methods
+
+                static string Reverse(int length, string numericSymbols, int number, int b, int disjoint)
+                {
+                    char[] result = new char[length];
+
+                    result[result.Length - 1] = NumberSuffix;
+                    for (int i = result.Length - 2; i >= 0; --i)
+                    {
+                        number = Math.DivRem(number, b, out int remainder) - disjoint;
+                        result[i] = numericSymbols[remainder];
+                    }
+
+                    return new string(result);
+                }
+#endif
             }
         }
 

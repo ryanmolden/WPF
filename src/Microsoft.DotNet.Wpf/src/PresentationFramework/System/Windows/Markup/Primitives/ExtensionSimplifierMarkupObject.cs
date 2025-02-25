@@ -354,9 +354,13 @@ namespace System.Windows.Markup.Primitives
                 {
                     Debug.Assert(!propertyWritten, "An argument was returned after a property was set. All arguments must be returned first and in order");
                 }
-                
+
+#if NET
                 ReadOnlySpan<char> value = property.StringValue;
-                
+#else
+                ReadOnlySpan<char> value = property.StringValue.AsSpan();
+#endif
+
                 if (!value.IsEmpty)
                 {
                     if (value[0] == '{')
@@ -369,7 +373,11 @@ namespace System.Windows.Markup.Primitives
                         else
                         {
                             // It is a nested markup-extension, just insert the text literally.
+#if NET
                             resultBuilder.Append(value);
+#else
+                            resultBuilder.Append(value.ToString());
+#endif
                             continue;
                         }
                     }

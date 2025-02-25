@@ -5036,7 +5036,11 @@ namespace System.Windows.Documents
                     {
                         int dotIndex = filename.LastIndexOf(".", StringComparison.Ordinal);
                         if (dotIndex < 0) dotIndex = filename.Length;
+#if NET
                         filename = $"{filename.AsSpan(0, dotIndex)}{s_seqno}{filename.AsSpan(dotIndex)}";
+#else
+                        filename = $"{filename.Substring(0, dotIndex)}{s_seqno}{filename.Substring(dotIndex)}";
+#endif
                     }
 
                     // create the TraceList

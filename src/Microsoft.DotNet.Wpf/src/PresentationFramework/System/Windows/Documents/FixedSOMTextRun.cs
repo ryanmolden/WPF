@@ -154,6 +154,7 @@ namespace System.Windows.Documents
                 && FixedTextBuilder.MostlyRTL(s))
             {
                 run._isReversed = true;
+#if NET
                 run.Text = string.Create(run.Text.Length, run.Text, (destination, runText) =>
                 {
                     for (int i = 0; i < destination.Length; i++)
@@ -161,6 +162,14 @@ namespace System.Windows.Documents
                         destination[i] = runText[runText.Length - 1 - i];
                     }
                 });
+#else
+                char[] reversed = new char[run.Text.Length];
+                for (int i = 0; i < run.Text.Length; i++)
+                {
+                    reversed[i] = run.Text[run.Text.Length - 1 - i];
+                }
+                run.Text = new String(reversed);
+#endif
             }
 
             if (s == "" && glyphs.Indices != null && glyphs.Indices.Length > 0)

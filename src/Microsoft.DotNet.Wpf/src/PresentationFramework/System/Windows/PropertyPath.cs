@@ -281,7 +281,7 @@ namespace System.Windows
                     {
                         // a dot inside parens, when there's no early-bound accessor,
                         // is an unresolved PD name
-                        if (name.Contains('.'))
+                        if (name.Contains("."))
                             ++ result;
                     }
                 }
@@ -929,10 +929,17 @@ namespace System.Windows
                 return false;
             }
 
+#if NET
             return Int32.TryParse(toParse,
-                                NumberStyles.Integer,
-                                TypeConverterHelper.InvariantEnglishUS.NumberFormat,
-                                out index);
+                                  NumberStyles.Integer,
+                                  TypeConverterHelper.InvariantEnglishUS.NumberFormat,
+                                  out index);
+#else
+            return Int32.TryParse(toParse.ToString(),
+                                  NumberStyles.Integer,
+                                  TypeConverterHelper.InvariantEnglishUS.NumberFormat,
+                                  out index);
+#endif
         }
 
         // determine if an object is one of the accessors we support

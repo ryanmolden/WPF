@@ -12,7 +12,6 @@
   </PropertyGroup>
 
   <PropertyGroup>
-      
     <EnableDefaultItems>false</EnableDefaultItems>
   </PropertyGroup>
 
@@ -34,6 +33,7 @@
   <ItemGroup>
     <Compile Include="$(WpfCommonDir)\src\System\LocalAppContext.cs" />
     <Compile Include="$(WpfCommonDir)\src\System\AppContextDefaultValues.cs" />
+    <Compile Include="SortHelper.cs" />
     <Compile Include="System\AppContextDefaultValues.cs" />
 
     <Compile Include="$(WpfCommonDir)src\System\SR.cs">
@@ -1425,7 +1425,7 @@
   <ItemGroup>
     <ProjectReference Include="$(WpfCycleBreakersDir)PresentationUI\PresentationUI-PresentationFramework-impl-cycle.csproj" />
     <ProjectReference Include="$(WpfSourceDir)ReachFramework\ReachFramework.csproj" />
-    <ProjectReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="$(WpfSourceDir)System.Printing\ref\System.Printing-ref.csproj" />
+    <ProjectReference Include="$(WpfSourceDir)System.Printing\ref\System.Printing-ref.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -1444,8 +1444,15 @@
 
   <ItemGroup>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="$(SystemConfigurationConfigurationManagerPackageVersion)" />
-    <PackageReference Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
-    <PackageReference Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'" Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" ExcludeAssets="compile" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'" Include="System.Memory" Version="$(SystemMemoryPackageVersion)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'">
+    <Reference Include="Accessibility" />
+    <Reference Include="$(PkgSystem_IO_Packaging)\lib\netstandard2.0\System.IO.Packaging.dll" />
   </ItemGroup>
 
     <!-- Including the Microsoft.TextTemplating.targets requires us to manually import Sdk.Targets because
@@ -1457,4 +1464,10 @@
   <Import Project="$(WpfCodeGenDir)AvTrace\GenAvMessages.targets" />
   <!-- DevDiv Bug 888747: Re-enable AvTrace codegen -->
   <!-- <Import Project="$(WpfCodeGenDir)DesignTimeTextTemplating.targets" /> -->
+
+  <Target Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'" Name="RemoveNetFxReferences" BeforeTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <Reference Remove="WindowsBase" />
+    </ItemGroup>
+  </Target>
 </Project>

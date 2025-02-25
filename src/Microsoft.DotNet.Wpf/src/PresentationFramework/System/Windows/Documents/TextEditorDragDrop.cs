@@ -33,8 +33,9 @@ namespace System.Windows.Documents
     using MS.Internal.Documents;
     using MS.Internal.Commands; // CommandHelpers
     using MS.Internal.PresentationFramework;  //Demand for drag and drop
-    
+
     using SecurityHelper=MS.Internal.SecurityHelper;
+    using NativeMethods = MS.Win32.NativeMethods;
 
     /// <summary>
     /// Text editing service for controls.

@@ -198,14 +198,24 @@ namespace System.Windows
                                 break;
                         }
 
+#if NET
+                        var subpath = originalPath.AsSpan(i, j - i + 1);
+#else
+                        var subpath = originalPath.Substring(i, j - i + 1);
+#endif
+
                         int index;
-                        if (Int32.TryParse( originalPath.AsSpan(i+1, j-i-1),
-                                            NumberStyles.Integer,
-                                            TypeConverterHelper.InvariantEnglishUS.NumberFormat,
-                                            out index))
+                        if (Int32.TryParse(subpath,
+                                           NumberStyles.Integer,
+                                           TypeConverterHelper.InvariantEnglishUS.NumberFormat,
+                                           out index))
                         {
                             // found (n). Write out the path so far, including the opening (
+#if NET
                             builder.Append(originalPath.AsSpan(start, i-start+1));
+#else
+                            builder.Append(originalPath.Substring(start, i - start + 1));
+#endif
 
                             object pathPart = parameters[index];
 
@@ -306,7 +316,11 @@ namespace System.Windows
 
                 if (start < originalPath.Length)
                 {
+#if NET
                     builder.Append(originalPath.AsSpan(start));
+#else
+                    builder.Append(originalPath.Substring(start));
+#endif
                 }
 
                 return builder.ToString();

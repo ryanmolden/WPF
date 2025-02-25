@@ -20,6 +20,8 @@ namespace System.Windows.Documents
     using MS.Win32;
     using System.Windows.Interop;
 
+    using NativeMethods = MS.Win32.NativeMethods;
+
     // A Component of TextEditor supporting the default ContextMenu.
     internal static class TextEditorContextMenu
     {

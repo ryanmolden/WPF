@@ -30,6 +30,8 @@ namespace System.Windows.Documents
     using MS.Internal.Documents;
     using MS.Internal.Commands; // CommandHelpers
 
+    using NativeMethods = MS.Win32.NativeMethods;
+
     /// <summary>
     /// Subcomponent of TextEditor class - Support for Typing
     /// </summary>

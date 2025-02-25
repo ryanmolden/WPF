@@ -2083,7 +2083,11 @@ namespace System.Windows.Baml2006
             int colonIdx = uriInput.IndexOf(':');
             if (colonIdx != -1)
             {
+#if NET
                 ReadOnlySpan<char> uriTypePrefix = uriInput.AsSpan(0, colonIdx);
+#else
+                string uriTypePrefix = uriInput.Substring(0, colonIdx);
+#endif
                 if (uriTypePrefix.Equals("clr-namespace", StringComparison.Ordinal))
                 {
                     //We have a clr-namespace so do special processing
@@ -2104,13 +2108,22 @@ namespace System.Windows.Baml2006
                         {
                             throw new ArgumentException(SR.Format(SR.MissingTagInNamespace, "=", uriInput));
                         }
+#if NET
                         ReadOnlySpan<char> keyword = uriInput.AsSpan(assemblyKeywordStartIdx, equalIdx - assemblyKeywordStartIdx);
+#else
+                        string keyword = uriInput.Substring(assemblyKeywordStartIdx, equalIdx - assemblyKeywordStartIdx);
+#endif
                         if (!keyword.Equals("assembly", StringComparison.Ordinal))
                         {
                             throw new ArgumentException(SR.Format(SR.AssemblyTagMissing, "assembly", uriInput));
                         }
+#if NET
                         ReadOnlySpan<char> assemblyName = uriInput.AsSpan(equalIdx + 1);
                         if (assemblyName.TrimStart().IsEmpty)
+#else
+                        string assemblyName = uriInput.Substring(equalIdx + 1);
+                        if (string.IsNullOrEmpty(assemblyName.TrimStart()))
+#endif
                         {
                             return string.Concat(uriInput, GetAssemblyNameForNamespace(_settings.LocalAssembly));
                         }
@@ -2124,11 +2137,19 @@ namespace System.Windows.Baml2006
         // Providing the assembly short name may lead to ambiguity between two versions of the same assembly, but we need to
         // keep it this way since it is exposed publicly via the Namespace property, Baml2006ReaderInternal provides the full Assembly name.
         // We need to avoid Assembly.GetName() so we run in PartialTrust without asserting.
+#if NET
         internal virtual ReadOnlySpan<char> GetAssemblyNameForNamespace(Assembly assembly)
         {
             string assemblyLongName = assembly.FullName;
             return assemblyLongName.AsSpan(0, assemblyLongName.IndexOf(','));
         }
+#else
+        internal virtual string GetAssemblyNameForNamespace(Assembly assembly)
+        {
+            string assemblyLongName = assembly.FullName;
+            return assemblyLongName.Substring(0, assemblyLongName.IndexOf(','));
+        }
+#endif
 
         // (prefix, namespaceUri)
         private void Process_XmlnsProperty()

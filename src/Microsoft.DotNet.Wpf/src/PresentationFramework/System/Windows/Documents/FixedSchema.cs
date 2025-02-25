@@ -442,7 +442,11 @@ namespace System.Windows.Documents
                 attrName.Equals("Stroke", StringComparison.Ordinal))
             {
                 ReadOnlySpan<char> attrValueSpan = attrValue.AsSpan().Trim();
+#if NET
                 if (attrValueSpan.StartsWith(_contextColor, StringComparison.Ordinal))
+#else
+                if (attrValueSpan.StartsWith(_contextColor.AsSpan(), StringComparison.Ordinal))
+#endif
                 {
                     attrValueSpan = attrValueSpan.Slice(_contextColor.Length).Trim();
                     int spacePos = attrValueSpan.IndexOf(' ');

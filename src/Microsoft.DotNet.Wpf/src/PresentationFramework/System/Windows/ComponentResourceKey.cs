@@ -134,7 +134,11 @@ namespace System.Windows
         /// </summary>
         /// <returns>the string representation of the key</returns>
         public override string ToString() =>
+#if NET
             string.Create(null, stackalloc char[256], $"TargetType={((_typeInTargetAssembly != null) ? _typeInTargetAssembly.FullName : "null")} ID={((_resourceId != null) ? _resourceId.ToString() : "null")}");
+#else
+            $"TargetType={((_typeInTargetAssembly != null) ? _typeInTargetAssembly.FullName : "null")} ID={((_resourceId != null) ? _resourceId.ToString() : "null")}";
+#endif
 
         private Type _typeInTargetAssembly;
         private bool _typeInTargetAssemblyInitialized;

@@ -180,8 +180,12 @@ namespace System.Windows.Controls
         {
             char listSeparator = TokenizerHelper.GetNumericListSeparator(cultureInfo);
 
+#if NET
             return string.Create(cultureInfo, stackalloc char[128],
                 $"{cacheLength.CacheBeforeViewport}{listSeparator}{cacheLength.CacheAfterViewport}");
+#else
+            return $"{cacheLength.CacheBeforeViewport}{listSeparator}{cacheLength.CacheAfterViewport}";
+#endif
         }
         /// <summary>
         /// Parses a VirtualizationCacheLength from a string given the CultureInfo.

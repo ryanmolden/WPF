@@ -1908,7 +1908,11 @@ namespace System.Windows.Markup
             _clrNamespace = piMappingRecord.ClrNamespace;
             _assemblyName = assemblyInfo.AssemblyFullName;
 
+#if NET
             _value = string.Create(null, stackalloc char[100], $"XmlNamespace=\"{_xmlNamespace}\" ClrNamespace=\"{_clrNamespace}\" Assembly=\"{_assemblyName}\"");
+#else
+            _value = $"XmlNamespace=\"{_xmlNamespace}\" ClrNamespace=\"{_clrNamespace}\" Assembly=\"{_assemblyName}\"";
+#endif
         }
 
         /***************************************************************************\
