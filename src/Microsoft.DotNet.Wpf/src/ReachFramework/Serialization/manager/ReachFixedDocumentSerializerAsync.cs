@@ -320,10 +320,7 @@ namespace System.Windows.Xps.Serialization
                 if (propertyValue is Type)
                 {
                     int index = valueAsString.LastIndexOf('.');
-                    valueAsString = string.Concat(
-                        XpsSerializationManager.TypeOfString,
-                        index > 0 ? valueAsString.AsSpan(index + 1) : valueAsString,
-                        "}");
+                    valueAsString = ReachStringHelper.Concat(valueAsString, index);
                 }
             }
             else
@@ -334,7 +331,7 @@ namespace System.Windows.Xps.Serialization
             return valueAsString;
         }
 
-        #endregion Internal Methods
+#endregion Internal Methods
 
         #region Public Properties
         
