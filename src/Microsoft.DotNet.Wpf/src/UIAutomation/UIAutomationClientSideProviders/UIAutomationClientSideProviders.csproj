@@ -7,7 +7,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
-    
     <EnableDefaultItems>false</EnableDefaultItems>
     <GenerateDependencyFile>false</GenerateDependencyFile>
   </PropertyGroup>
@@ -130,5 +129,8 @@
     <NetCoreReference Include="System.Threading" />
     <NetCoreReference Include="System.Threading.Thread" />
     <MicrosoftPrivateWinFormsReference Include="Accessibility" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'">
+    <Reference Include="Accessibility" />
   </ItemGroup>
 </Project>
