@@ -2,7 +2,6 @@
 
   <PropertyGroup>
 
-    
     <Platforms>AnyCPU;x64;arm64</Platforms>
     <EnableDefaultItems>false</EnableDefaultItems>
     <DefineConstants>$(DefineConstants);RIBBON_IN_FRAMEWORK</DefineConstants>
@@ -11,6 +10,7 @@
 
     <!-- Enable Markup compilation using our own internally build PresentationBuildTasks.dll -->
     <InternalMarkupCompilation>true</InternalMarkupCompilation>
+    <ImportFrameworkWinFXTargets>false</ImportFrameworkWinFXTargets>
     <NoInternalTypeHelper>true</NoInternalTypeHelper>
     <GenerateDependencyFile>false</GenerateDependencyFile>
 
@@ -224,6 +224,10 @@
     <NetCoreReference Include="System.Xml.ReaderWriter" />
     <NetCoreReference Include="Microsoft.Win32.Primitives" />
 
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'" Include="System.Memory" Version="$(SystemMemoryPackageVersion)" />
   </ItemGroup>
 
 </Project>
