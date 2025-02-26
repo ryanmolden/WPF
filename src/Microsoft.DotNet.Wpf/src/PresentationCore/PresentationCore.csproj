@@ -91,6 +91,7 @@
     <Compile Include="$(WpfSharedDir)\MS\Utility\PerfService.cs" />
     <Compile Include="$(WpfSharedDir)\MS\Utility\Maps.cs" />
     <Compile Include="$(WpfSharedDir)\System\DictionaryHelpers.cs" />
+    <Compile Include="$(WpfSharedDir)\System\ReferenceEqualityComparer.cs" />
     <Compile Include="$(WpfSharedDir)\System\ThrowHelpers.cs" />
     <Compile Include="$(WpfSharedDir)\System\IO\FileHelper.cs" />
     <Compile Include="$(WpfSharedDir)\System\Windows\Ink\KnownIds.cs" />

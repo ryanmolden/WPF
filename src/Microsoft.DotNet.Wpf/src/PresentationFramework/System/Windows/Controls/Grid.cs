@@ -1535,7 +1535,11 @@ namespace System.Windows.Controls
                         double sizeToDistribute;
                         int i;
 
+#if NET
                         tempDefinitions.AsSpan(0, count).Sort(s_spanPreferredDistributionOrderComparer);
+#else
+                        Array.Sort(tempDefinitions, 0, count, s_spanPreferredDistributionOrderComparer);
+#endif
                         for (i = 0, sizeToDistribute = requestedSize; i < autoDefinitionsCount; ++i)
                         {
                             //  sanity check: only auto definitions allowed in this loop
@@ -1572,7 +1576,11 @@ namespace System.Windows.Controls
                         double sizeToDistribute;
                         int i;
 
+#if NET
                         tempDefinitions.AsSpan(0, count).Sort(s_spanMaxDistributionOrderComparer);
+#else
+                        Array.Sort(tempDefinitions, 0, count, s_spanMaxDistributionOrderComparer);
+#endif
                         for (i = 0, sizeToDistribute = requestedSize - rangePreferredSize; i < count - autoDefinitionsCount; ++i)
                         {
                             //  sanity check: no auto definitions allowed in this loop
@@ -1717,7 +1725,11 @@ namespace System.Windows.Controls
 
             if (starDefinitionsCount > 0)
             {
+#if NET
                 tempDefinitions.AsSpan(0, starDefinitionsCount).Sort(s_starDistributionOrderComparer);
+#else
+                Array.Sort(tempDefinitions, 0, starDefinitionsCount, s_starDistributionOrderComparer);
+#endif
 
                 //  the 'do {} while' loop below calculates sum of star weights in order to avoid fp overflow...
                 //  partial sum value is stored in each definition's SizeCache member.
@@ -1876,8 +1888,13 @@ namespace System.Windows.Controls
                 double takenStarWeight = 0.0;
                 double remainingAvailableSize = availableSize - takenSize;
                 double remainingStarWeight = totalStarWeight - takenStarWeight;
+#if NET
                 tempDefinitions.AsSpan(0, minCount).Sort(s_minRatioComparer);
                 tempDefinitions.AsSpan(defCount, maxCount).Sort(s_maxRatioComparer);
+#else
+                Array.Sort(tempDefinitions, 0, minCount, s_minRatioComparer);
+                Array.Sort(tempDefinitions, defCount, maxCount, s_maxRatioComparer);
+#endif
 
                 while (minCount + maxCount > 0 && remainingAvailableSize > 0.0)
                 {
@@ -2033,7 +2050,11 @@ namespace System.Windows.Controls
 
             if (starCount > 0)
             {
+#if NET
                 tempDefinitions.AsSpan(0, starCount).Sort(s_starWeightComparer);
+#else
+                Array.Sort(tempDefinitions, 0, starCount, s_starWeightComparer);
+#endif
 
                 // compute the partial sums of *-weight, in increasing order of weight
                 // for minimal loss of precision.
@@ -3328,12 +3349,21 @@ namespace System.Windows.Controls
         private const double c_starClip = 1e298;                //  used as maximum for clipping star values during normalization
         private const int c_layoutLoopMaxCount = 5;             // 5 is an arbitrary constant chosen to end the measure loop
         private static readonly LocalDataStoreSlot s_tempDefinitionsDataSlot = Thread.AllocateDataSlot();
+#if NET
         private static readonly Comparison<DefinitionBase> s_spanPreferredDistributionOrderComparer = SpanPreferredDistributionOrderComparer;
         private static readonly Comparison<DefinitionBase> s_spanMaxDistributionOrderComparer = SpanMaxDistributionOrderComparer;
         private static readonly Comparison<DefinitionBase> s_starDistributionOrderComparer = StarDistributionOrderComparer;
         private static readonly Comparison<DefinitionBase> s_minRatioComparer = MinRatioComparer;
         private static readonly Comparison<DefinitionBase> s_maxRatioComparer = MaxRatioComparer;
         private static readonly Comparison<DefinitionBase> s_starWeightComparer = StarWeightComparer;
+#else
+        private static readonly Comparer<DefinitionBase> s_spanPreferredDistributionOrderComparer = Comparer<DefinitionBase>.Create(SpanPreferredDistributionOrderComparer);
+        private static readonly Comparer<DefinitionBase> s_spanMaxDistributionOrderComparer = Comparer<DefinitionBase>.Create(SpanMaxDistributionOrderComparer);
+        private static readonly Comparer<DefinitionBase> s_starDistributionOrderComparer = Comparer<DefinitionBase>.Create(StarDistributionOrderComparer);
+        private static readonly Comparer<DefinitionBase> s_minRatioComparer = Comparer<DefinitionBase>.Create(MinRatioComparer);
+        private static readonly Comparer<DefinitionBase> s_maxRatioComparer = Comparer<DefinitionBase>.Create(MaxRatioComparer);
+        private static readonly Comparer<DefinitionBase> s_starWeightComparer = Comparer<DefinitionBase>.Create(StarWeightComparer);
+#endif
 
         #endregion Static Fields
 

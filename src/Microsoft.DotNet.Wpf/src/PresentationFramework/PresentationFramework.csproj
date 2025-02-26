@@ -33,7 +33,6 @@
   <ItemGroup>
     <Compile Include="$(WpfCommonDir)\src\System\LocalAppContext.cs" />
     <Compile Include="$(WpfCommonDir)\src\System\AppContextDefaultValues.cs" />
-    <Compile Include="SortHelper.cs" />
     <Compile Include="System\AppContextDefaultValues.cs" />
 
     <Compile Include="$(WpfCommonDir)src\System\SR.cs">

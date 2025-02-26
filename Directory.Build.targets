@@ -7,4 +7,9 @@
           Project="Sdk.targets"
           Condition="!Exists('$(WpfArcadeSdkProps)') Or !Exists('$(WpfArcadeSdkTargets)')"/>
 
+  <PropertyGroup Condition="'$(SignAssembly)' != 'false' and '$(PublicSign)' == 'true' and '$(TargetFrameworkIdentifier)' == '.NETFramework'">
+    <!-- Don't public sign .NETFramework assemblies -->
+    <DelaySign>true</DelaySign>
+    <PublicSign>false</PublicSign>
+  </PropertyGroup>
 </Project>
