@@ -1749,7 +1749,11 @@ namespace MS.Internal.Documents
         {
             double result;
             // Parse the new value.
+#if NET
             if (StringToZoomValue(ZoomComboBox.Text, out result))
+#else
+            if (StringToZoomValue(ZoomComboBox.Text.AsSpan(), out result))
+#endif
             {
                 // The value is valid, set on DocumentViewer
                 Zoom = result;
@@ -1875,9 +1879,16 @@ namespace MS.Internal.Documents
                             case 0: // n %
                             case 1: // n%
                                 // Remove the last character if it is a percent sign
+#if NET
                                 if (zoomString.Length - 1 == zoomString.LastIndexOf(
                                                                 culture.NumberFormat.PercentSymbol,
                                                                 StringComparison.CurrentCultureIgnoreCase))
+#else
+                                if (zoomString.Length - 1 == CultureInfo.CurrentCulture.CompareInfo.LastIndexOf(
+                                                                zoomString.ToString(),
+                                                                culture.NumberFormat.PercentSymbol,
+                                                                CompareOptions.IgnoreCase))
+#endif
                                 {
                                     zoomString = zoomString.Slice(0, zoomString.Length - 1);
                                 }
@@ -1885,9 +1896,16 @@ namespace MS.Internal.Documents
                             case 2: // %n
                             case 3: // % n
                                 // Remove the first character if it is a percent sign.
+#if NET
                                 if (0 == zoomString.IndexOf(
                                             culture.NumberFormat.PercentSymbol,
                                             StringComparison.CurrentCultureIgnoreCase))
+#else
+                                if (0 == CultureInfo.CurrentCulture.CompareInfo.IndexOf(
+                                            zoomString.ToString(),
+                                            culture.NumberFormat.PercentSymbol,
+                                            CompareOptions.IgnoreCase))
+#endif
                                 {
                                     zoomString = zoomString.Slice(1);
                                 }
@@ -1896,7 +1914,11 @@ namespace MS.Internal.Documents
                     }
 
                     // If this conversion throws then the string wasn't a valid zoom value.
+#if NET
                     zoomValue = double.Parse(zoomString, provider: culture);
+#else
+                    zoomValue = double.Parse(zoomString.ToString(), provider: culture);
+#endif
                     isValidArg = true;
                 }
             }

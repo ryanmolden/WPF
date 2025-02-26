@@ -2,7 +2,6 @@
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
   <PropertyGroup>
 
-    
     <Platforms>AnyCPU;x64;arm64</Platforms>
 
     <EnableDefaultItems>false</EnableDefaultItems>
@@ -13,6 +12,7 @@
 
     <!-- Enable Markup compilation using our own internally build PresentationBuildTasks.dll -->
     <InternalMarkupCompilation>true</InternalMarkupCompilation>
+    <ImportFrameworkWinFXTargets>false</ImportFrameworkWinFXTargets>
     <NoInternalTypeHelper>true</NoInternalTypeHelper>
     <GenerateDependencyFile>false</GenerateDependencyFile>
   </PropertyGroup>
@@ -215,11 +215,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
     <PackageReference Include="System.Drawing.Common" Version="$(SystemDrawingCommonVersion)" />
     <PackageReference Include="$(SystemDirectoryServicesPackage)" Version="$(SystemDirectoryServicesVersion)" />
-    <PackageReference Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
-    <PackageReference Include="System.Resources.Extensions" Version="$(SystemResourcesExtensionsVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'" Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" ExcludeAssets="compile" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="System.Resources.Extensions" Version="$(SystemResourcesExtensionsVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'" Include="System.Memory" Version="$(SystemMemoryPackageVersion)" />
   </ItemGroup>
 
   <!--
@@ -260,6 +262,12 @@
     <MicrosoftPrivateWinFormsReference Include="System.Windows.Forms.Primitives" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'">
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="$(PkgSystem_IO_Packaging)\lib\netstandard2.0\System.IO.Packaging.dll" />
+  </ItemGroup>
+
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
 
   <Target Name="AfterBuild" Inputs="@(Page)" Outputs="$(OutputPath)sdk\PUI.%(Page.Filename)%(Page.Extension)">
@@ -279,4 +287,10 @@
       $(PrepareResourcesDependsOn);
     </PrepareResourcesDependsOn>
   </PropertyGroup>
+
+  <Target Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'" Name="RemoveNetFxReferences" BeforeTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <Reference Remove="WindowsBase" />
+    </ItemGroup>
+  </Target>
 </Project>
