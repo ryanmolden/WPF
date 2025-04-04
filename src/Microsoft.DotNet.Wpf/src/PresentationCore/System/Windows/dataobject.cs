@@ -34,6 +34,7 @@ namespace System.Windows
 
     using SR=MS.Internal.PresentationCore.SR;
     using IComDataObject = System.Runtime.InteropServices.ComTypes.IDataObject;
+    using NativeMethods = MS.Win32.NativeMethods;
 
 // PreSharp uses message numbers that the C# compiler doesn't know about.
 // Disable the C# complaints, per the PreSharp documentation.

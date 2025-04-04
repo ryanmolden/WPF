@@ -354,9 +354,9 @@ namespace System.Windows.Markup.Primitives
                 {
                     Debug.Assert(!propertyWritten, "An argument was returned after a property was set. All arguments must be returned first and in order");
                 }
-                
-                ReadOnlySpan<char> value = property.StringValue;
-                
+
+                ReadOnlySpan<char> value = property.StringValue.AsSpan();
+
                 if (!value.IsEmpty)
                 {
                     if (value[0] == '{')

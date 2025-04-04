@@ -1967,7 +1967,7 @@ namespace System.Xaml
                 if (value is NameFixupToken && parentProperty != XamlLanguage.Items)
                 {
                     NameFixupToken token = value as NameFixupToken;
-                    string names = String.Join(',', token.NeededNames.ToArray());
+                    string names = String.Join(",", token.NeededNames.ToArray());
                     string msg = SR.Format(SR.ForwardRefDirectives, names);
                     throw ctx.WithLineInfo(new XamlObjectWriterException(msg));
                 }
@@ -2004,7 +2004,7 @@ namespace System.Xaml
                             // Only the key directive may be assigned a reference.
                             if (parentProperty != XamlLanguage.Key)
                             {
-                                string names = String.Join(',', token.NeededNames.ToArray());
+                                string names = String.Join(",", token.NeededNames.ToArray());
                                 string msg = SR.Format(SR.ForwardRefDirectives, names);
                                 throw ctx.WithLineInfo(new XamlObjectWriterException(msg));
                             }
@@ -2057,7 +2057,7 @@ namespace System.Xaml
                                 if (parentProperty != XamlLanguage.Key)
                                 {
                                     NameFixupToken token = (NameFixupToken)value;
-                                    string names = String.Join(',', token.NeededNames.ToArray());
+                                    string names = String.Join(",", token.NeededNames.ToArray());
                                     string msg = SR.Format(SR.ForwardRefDirectives, names);
                                     throw ctx.WithLineInfo(new XamlObjectWriterException(msg));
                                 }

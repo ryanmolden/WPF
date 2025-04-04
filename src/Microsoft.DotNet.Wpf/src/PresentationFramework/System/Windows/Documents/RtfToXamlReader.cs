@@ -275,7 +275,7 @@ namespace System.Windows.Documents
 
         internal static string StringToXMLAttribute(string s)
         {
-            if (!s.Contains('"'))
+            if (!s.Contains("\""))
             {
                 return s;
             }
@@ -3747,7 +3747,7 @@ namespace System.Windows.Documents
                                         if (lhs_name.Length > rhs_name.Length)
                                         {
                                             ReadOnlySpan<char> s = lhs_name.AsSpan(0, rhs_name.Length);
-                                            if (s.Equals(rhs_name, StringComparison.OrdinalIgnoreCase))
+                                            if (s.Equals(rhs_name.AsSpan(), StringComparison.OrdinalIgnoreCase))
                                             {
                                                 bAdd = true;
                                             }

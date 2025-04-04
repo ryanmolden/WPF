@@ -22,6 +22,8 @@ using Microsoft.Win32;
 using System.Diagnostics;
 using MS.Win32;
 
+using UnsafeNativeMethods = MS.Win32.UnsafeNativeMethods;
+
 namespace System.Windows.Input
 {
     //------------------------------------------------------

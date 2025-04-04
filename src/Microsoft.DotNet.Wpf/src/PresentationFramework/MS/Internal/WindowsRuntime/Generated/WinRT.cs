@@ -136,14 +136,14 @@ namespace WinRT
             // Explicitly look for module in the same directory as this one, and
             // use altered search path to ensure any dependencies in the same directory are found.
             _moduleHandle = Platform.LoadLibraryExW(System.IO.Path.Combine(_currentModuleDirectory, fileName), IntPtr.Zero, /* LOAD_WITH_ALTERED_SEARCH_PATH */ 8);
-#if !NETSTANDARD2_0 && !NETCOREAPP2_0
+#if NET
             if (_moduleHandle == IntPtr.Zero)
             {
-                try 
-	            {	        
+                try
+                {
                     // Allow runtime to find module in RID-specific relative subfolder
                     _moduleHandle = NativeLibrary.Load(fileName, Assembly.GetExecutingAssembly(), null);
-	            }
+                }
                 catch (Exception) { }
             }
 #endif

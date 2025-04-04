@@ -23,6 +23,7 @@ namespace Microsoft.Windows.Shell
     using Standard;
 
     using HANDLE_MESSAGE = System.Collections.Generic.KeyValuePair<Standard.WM, Standard.MessageHandler>;
+    using NativeMethods = Standard.NativeMethods;
 
     internal class WindowChromeWorker : DependencyObject
     {

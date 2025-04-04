@@ -13,6 +13,7 @@ namespace MS.Internal
     using System.Security;
 
     using PROCESS_DPI_AWARENESS = MS.Win32.NativeMethods.PROCESS_DPI_AWARENESS;
+    using NativeMethods = MS.Win32.NativeMethods;
 
     /// <content>
     /// Contains definition of <see cref="ProcessDpiAwarenessHelper"/>

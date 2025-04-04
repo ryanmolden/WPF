@@ -508,7 +508,7 @@ namespace MS.Internal.TextFormatting
                     int n = firstDigit + i - 0x10000;
                     twoChars[0] = (char)((n >> 10) | 0xD800);     // high surrogate
                     twoChars[1] = (char)((n & 0x03FF) | 0xDC00);  // low surrogate
-                    digits[i] = new string(twoChars);
+                    digits[i] = twoChars.ToString();
                 }
             }
 

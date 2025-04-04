@@ -28,6 +28,8 @@ namespace Microsoft.Win32
     using MS.Internal.PresentationFramework;
     using MS.Win32;
 
+    using NativeMethods = MS.Win32.NativeMethods;
+
     /// <summary>
     ///  An abstract base class for displaying common dialogs.
     /// </summary>
@@ -80,7 +82,7 @@ namespace Microsoft.Win32
             // Call GetActiveWindow to retrieve the window handle to the active window
             // attached to the calling thread's message queue.  We'll set the owner of
             // the common dialog to this handle.
-            IntPtr hwndOwner = UnsafeNativeMethods.GetActiveWindow();
+            IntPtr hwndOwner = MS.Win32.UnsafeNativeMethods.GetActiveWindow();
 
             if (hwndOwner == IntPtr.Zero)
             {
@@ -321,16 +323,16 @@ namespace Microsoft.Win32
                                                          ref y);
 
                     // Call SetWindowPos to actually move the window.
-                    UnsafeNativeMethods.SetWindowPos(hWnd,                          // handle to the window to move
-                                                     NativeMethods.NullHandleRef,   // window to precede this one in zorder
-                                                     (int)Math.Round(x),
-                                                     (int)Math.Round(y),            // new X and Y positions
-                                                     0, 0,                          // new width and height, if applicable
-                                                                                    // Flags:  
-                                                                                    //    SWP_NOSIZE: Retains current size
-                                                                                    //    SWP_NOZORDER:  retains current zorder
-                                                                                    //    SWP_NOACTIVATE:  does not activate the window
-                                                     NativeMethods.SWP_NOSIZE | NativeMethods.SWP_NOZORDER | NativeMethods.SWP_NOACTIVATE);
+                    MS.Win32.UnsafeNativeMethods.SetWindowPos(hWnd,                          // handle to the window to move
+                                                              NativeMethods.NullHandleRef,   // window to precede this one in zorder
+                                                              (int)Math.Round(x),
+                                                              (int)Math.Round(y),            // new X and Y positions
+                                                              0, 0,                          // new width and height, if applicable
+                                                                                             // Flags:  
+                                                                                             //    SWP_NOSIZE: Retains current size
+                                                                                             //    SWP_NOZORDER:  retains current zorder
+                                                                                             //    SWP_NOACTIVATE:  does not activate the window
+                                                              NativeMethods.SWP_NOSIZE | NativeMethods.SWP_NOZORDER | NativeMethods.SWP_NOACTIVATE);
                 }
             }
         }

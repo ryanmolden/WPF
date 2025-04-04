@@ -164,11 +164,11 @@ namespace MS.Internal.PtsHost
             if (number < b)
             {
                 // Optimize common case of single-digit numbers.
-                return new string(stackalloc char[2] // digit + suffix
+                return stackalloc char[2] // digit + suffix
                 {
                     numericSymbols[number],
                     NumberSuffix
-                });
+                }.ToString();
             }
             else
             {

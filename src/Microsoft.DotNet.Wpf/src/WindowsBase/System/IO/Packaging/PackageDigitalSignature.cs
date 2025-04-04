@@ -211,7 +211,7 @@ namespace System.IO.Packaging
         /// Future signature types will return objects of different classes.
         /// </returns>
         /// <exception cref="InvalidOperationException">Thrown if associated digital signature has been deleted.</exception>
-        public Signature Signature
+        public System.Security.Cryptography.Xml.Signature Signature
         {
             get
             {

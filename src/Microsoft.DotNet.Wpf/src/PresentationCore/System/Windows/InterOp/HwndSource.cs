@@ -25,6 +25,7 @@ using System.Security;
 using System.IO;
 
 using SR = MS.Internal.PresentationCore.SR;
+using UnsafeNativeMethods = MS.Win32.UnsafeNativeMethods;
 
 #pragma warning disable 1634, 1691  // suppressing PreSharp warnings
 

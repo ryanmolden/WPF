@@ -1749,7 +1749,7 @@ namespace MS.Internal.Documents
         {
             double result;
             // Parse the new value.
-            if (StringToZoomValue(ZoomComboBox.Text, out result))
+            if (StringToZoomValue(ZoomComboBox.Text.AsSpan(), out result))
             {
                 // The value is valid, set on DocumentViewer
                 Zoom = result;

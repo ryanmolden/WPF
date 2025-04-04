@@ -12,6 +12,8 @@ namespace MS.Internal
     using System.Runtime.InteropServices;
     using System.Security;
 
+    using NativeMethods = MS.Win32.NativeMethods;
+
     internal static partial class DpiUtil
     {
         /// <summary>

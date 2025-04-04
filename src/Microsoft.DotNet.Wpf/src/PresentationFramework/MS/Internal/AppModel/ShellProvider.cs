@@ -21,6 +21,7 @@ namespace MS.Internal.AppModel
     using FILETIME = System.Runtime.InteropServices.ComTypes.FILETIME;
     using IPersistFile = System.Runtime.InteropServices.ComTypes.IPersistFile;
     using IStream = System.Runtime.InteropServices.ComTypes.IStream;
+    using NativeMethods = MS.Win32.NativeMethods;
 
     #region Structs
 

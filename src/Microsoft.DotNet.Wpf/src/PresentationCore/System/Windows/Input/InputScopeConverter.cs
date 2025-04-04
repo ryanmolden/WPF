@@ -109,7 +109,7 @@ namespace System.Windows.Input
 
             if (null != stringSource)
             {
-                ReadOnlySpan<char> spanSource = stringSource;
+                ReadOnlySpan<char> spanSource = stringSource.AsSpan();
                 spanSource = spanSource.Trim();
 
                 int periodPos = spanSource.LastIndexOf('.');

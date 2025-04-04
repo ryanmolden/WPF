@@ -353,7 +353,7 @@ namespace Microsoft.Win32
             bool ret = false;
 
             // Get the window that currently has focus and temporarily cache a handle to it
-            IntPtr focusHandle = UnsafeNativeMethods.GetFocus();
+            IntPtr focusHandle = MS.Win32.UnsafeNativeMethods.GetFocus();
 
             try
             {
@@ -367,7 +367,7 @@ namespace Microsoft.Win32
             {
                 // Return focus to the window that had focus before we showed the messagebox.
                 // SetFocus can handle improper hwnd values, including null.
-                UnsafeNativeMethods.SetFocus(new HandleRef(this, focusHandle));
+                MS.Win32.UnsafeNativeMethods.SetFocus(new HandleRef(this, focusHandle));
             }
             return ret;
         }
@@ -577,7 +577,7 @@ namespace Microsoft.Win32
             // When this callback occurs, the HWND is visible and we need to
             // grab it because it is used for various things like looking up the
             // DialogCaption.
-            UnsafeNativeMethods.IOleWindow oleWindow = (UnsafeNativeMethods.IOleWindow)dialog;
+            MS.Win32.UnsafeNativeMethods.IOleWindow oleWindow = (MS.Win32.UnsafeNativeMethods.IOleWindow)dialog;
             oleWindow.GetWindow(out _hwndFileDialog);
 
             string[] saveItemNames = _itemNames;
@@ -677,20 +677,20 @@ namespace Microsoft.Win32
         {
             get
             {
-                if (!UnsafeNativeMethods.IsWindow(new HandleRef(this, _hwndFileDialog)))
+                if (!MS.Win32.UnsafeNativeMethods.IsWindow(new HandleRef(this, _hwndFileDialog)))
                 {
                     return String.Empty;
                 }
 
                 // Determine the length of the text we want to retrieve...
-                int textLen = UnsafeNativeMethods.GetWindowTextLength(new HandleRef(this, _hwndFileDialog));
+                int textLen = MS.Win32.UnsafeNativeMethods.GetWindowTextLength(new HandleRef(this, _hwndFileDialog));
                 // then make a StringBuilder...
                 StringBuilder sb = new StringBuilder(textLen + 1);
                 // and call GetWindowText to fill it up...
-                UnsafeNativeMethods.GetWindowText(new HandleRef(this, _hwndFileDialog),
-                           sb /*target string*/,
-                           sb.Capacity /* max # of chars to copy before truncation occurs */
-                           );
+                MS.Win32.UnsafeNativeMethods.GetWindowText(new HandleRef(this, _hwndFileDialog),
+                                                           sb /*target string*/,
+                                                           sb.Capacity /* max # of chars to copy before truncation occurs */
+                                                           );
                 // then return the results.
                 return sb.ToString();
             }

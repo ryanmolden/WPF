@@ -29,6 +29,7 @@ using System.Security;
 
 using SR=MS.Internal.PresentationCore.SR;
 using DllImport=MS.Internal.PresentationCore.DllImport;
+using UnsafeNativeMethods = MS.Win32.UnsafeNativeMethods;
 
 namespace System.Windows.Media
 {

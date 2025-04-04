@@ -1130,8 +1130,8 @@ namespace System.Windows.Controls
                 if (index >= 0)
                 {
                     ReadOnlySpan<char> token = aqn.AsSpan(index + PublicKeyToken.Length);
-                    if (token.Equals(MS.Internal.PresentationFramework.BuildInfo.WCP_PUBLIC_KEY_TOKEN, StringComparison.OrdinalIgnoreCase) ||
-                        token.Equals(MS.Internal.PresentationFramework.BuildInfo.DEVDIV_PUBLIC_KEY_TOKEN, StringComparison.OrdinalIgnoreCase))
+                    if (token.Equals(MS.Internal.PresentationFramework.BuildInfo.WCP_PUBLIC_KEY_TOKEN.AsSpan(), StringComparison.OrdinalIgnoreCase) ||
+                        token.Equals(MS.Internal.PresentationFramework.BuildInfo.DEVDIV_PUBLIC_KEY_TOKEN.AsSpan(), StringComparison.OrdinalIgnoreCase))
                     {
                         isLikely = false;
                     }

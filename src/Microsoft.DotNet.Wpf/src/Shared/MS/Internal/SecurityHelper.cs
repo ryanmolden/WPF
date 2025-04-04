@@ -45,6 +45,8 @@ namespace MS.Internal.Drt
 
 #if PRESENTATION_CORE
 using MS.Internal.AppModel;
+using NativeMethods = MS.Win32.NativeMethods;
+using UnsafeNativeMethods = MS.Win32.UnsafeNativeMethods;
 #endif
 
 #if PRESENTATIONFRAMEWORK_ONLY
@@ -67,7 +69,7 @@ using MS.Internal.AppModel;
 #endif
 
 
-internal static class SecurityHelper
+    internal static class SecurityHelper
     {
 
 #if PRESENTATION_CORE
