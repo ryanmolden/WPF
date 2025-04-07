@@ -816,7 +816,7 @@ namespace MS.Internal.IO.Packaging
             // Get the instance length
             // ContentRange: ZZZ
             contentRangeSpan = contentRangeSpan.Slice(index + 1);
-            if (!contentRangeSpan.Equals("*", StringComparison.Ordinal))
+            if (!contentRangeSpan.Equals(Asterisk.AsSpan(), StringComparison.Ordinal))
             {
                 // Note: for firstByteOffset and lastByteOffset, we are using Int32.Parse to make sure Int32.Parse to throw
                 //  if it is not an integer or the integer is bigger than Int32 since HttpWebRequest.AddRange
@@ -891,6 +891,7 @@ namespace MS.Internal.IO.Packaging
 
         private const String ByteRangeUnit = "BYTES ";
         private const String ContentRangeHeader = "Content-Range";
+        private const String Asterisk = "*";
 
         #endregion Private Fields
     }
