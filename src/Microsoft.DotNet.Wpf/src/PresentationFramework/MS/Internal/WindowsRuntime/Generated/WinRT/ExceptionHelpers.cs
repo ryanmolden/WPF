@@ -168,7 +168,7 @@ namespace WinRT
             {
                 // If the exception has information for an IRestrictedErrorInfo, use that
                 // as our error so as to propagate the error through WinRT end-to-end.
-                if (ex.TryGetRestrictedLanguageErrorObject(out var restrictedErrorObject))
+                if (ex.TryGetRestrictedLanguageErrorObject(out IObjectReference restrictedErrorObject))
                 {
                     using (restrictedErrorObject)
                     {
@@ -215,7 +215,7 @@ namespace WinRT
         public static int GetHRForException(Exception ex)
         {
             int hr = ex.HResult;
-            if (ex.TryGetRestrictedLanguageErrorObject(out var restrictedErrorObject))
+            if (ex.TryGetRestrictedLanguageErrorObject(out IObjectReference restrictedErrorObject))
             {
                 restrictedErrorObject.AsType<ABI.WinRT.Interop.IRestrictedErrorInfo>().GetErrorDetails(out _, out hr, out _, out _);
             }

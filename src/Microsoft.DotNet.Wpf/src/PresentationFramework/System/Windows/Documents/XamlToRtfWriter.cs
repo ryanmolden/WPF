@@ -2888,7 +2888,7 @@ namespace System.Windows.Documents
                                     case XamlAttribute.XAFontSize:
                                         double fs = 0f;
 
-                                        if (XamlParserHelper.ConvertToFontSize(converterState, valueString, ref fs))
+                                        if (XamlParserHelper.ConvertToFontSize(converterState.AsSpan(), valueString, ref fs))
                                         {
                                             formatState.FontSize = (long)Math.Round(fs);
                                         }
@@ -3181,7 +3181,7 @@ namespace System.Windows.Documents
                                     case XamlAttribute.XAMargin:
                                         {
                                             XamlThickness thickness = new XamlThickness(0f, 0f, 0f, 0f);
-                                            if (XamlParserHelper.ConvertToThickness(converterState, valueString, ref thickness))
+                                            if (XamlParserHelper.ConvertToThickness(converterState, valueString.AsSpan(), ref thickness))
                                             {
                                                 formatState.LI = Converters.PxToTwipRounded(thickness.Left);
                                                 formatState.RI = Converters.PxToTwipRounded(thickness.Right);
@@ -3194,7 +3194,7 @@ namespace System.Windows.Documents
                                     case XamlAttribute.XAPadding:
                                         {
                                             XamlThickness t = new XamlThickness(0f, 0f, 0f, 0f);
-                                            if (XamlParserHelper.ConvertToThickness(converterState, valueString, ref t))
+                                            if (XamlParserHelper.ConvertToThickness(converterState, valueString.AsSpan(), ref t))
                                             {
                                                 if (xamlTag == XamlTag.XTParagraph)
                                                 {
@@ -3217,7 +3217,7 @@ namespace System.Windows.Documents
                                     case XamlAttribute.XABorderThickness:
                                         {
                                             XamlThickness t = new XamlThickness(0f, 0f, 0f, 0f);
-                                            if (XamlParserHelper.ConvertToThickness(converterState, valueString, ref t))
+                                            if (XamlParserHelper.ConvertToThickness(converterState, valueString.AsSpan(), ref t))
                                             {
                                                 if (xamlTag == XamlTag.XTParagraph)
                                                 {

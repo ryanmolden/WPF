@@ -2084,7 +2084,7 @@ namespace System.Windows.Baml2006
             if (colonIdx != -1)
             {
                 ReadOnlySpan<char> uriTypePrefix = uriInput.AsSpan(0, colonIdx);
-                if (uriTypePrefix.Equals("clr-namespace", StringComparison.Ordinal))
+                if (uriTypePrefix.Equals("clr-namespace".AsSpan(), StringComparison.Ordinal))
                 {
                     //We have a clr-namespace so do special processing
                     int semicolonIdx = uriInput.IndexOf(';');
@@ -2105,7 +2105,7 @@ namespace System.Windows.Baml2006
                             throw new ArgumentException(SR.Format(SR.MissingTagInNamespace, "=", uriInput));
                         }
                         ReadOnlySpan<char> keyword = uriInput.AsSpan(assemblyKeywordStartIdx, equalIdx - assemblyKeywordStartIdx);
-                        if (!keyword.Equals("assembly", StringComparison.Ordinal))
+                        if (!keyword.Equals("assembly".AsSpan(), StringComparison.Ordinal))
                         {
                             throw new ArgumentException(SR.Format(SR.AssemblyTagMissing, "assembly", uriInput));
                         }
