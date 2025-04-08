@@ -360,6 +360,14 @@
     <Compile Include="MS\Internal\Security\RightsManagement\RevocationPoint.cs" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'">
+    <Compile Include="$(WpfSharedDir)\OtherAssemblyAttrs.Global.cs" />
+    <Compile Include="$(WpfSharedDir)\System\Attributes.cs" />
+    <Compile Include="$(WpfSharedDir)\System\ReferenceEqualityComparer.cs" />
+    <Compile Include="System\Security\Permissions\MediaPermission.cs" />
+    <Compile Include="System\Security\Permissions\WebBrowserPermissions.cs" />
+  </ItemGroup>
+
   <!--
        WindowsBase provides some functionality that is shared with other DLLs.  This
        functionality comes from generated sources files.  Here we generate two of
@@ -421,10 +429,10 @@
 
   <ItemGroup>
     <PackageReference Include="System.Diagnostics.EventLog" Version="$(SystemDiagnosticsEventLogPackageVersion)" />
-    <PackageReference Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
     <PackageReference Include="System.Security.Cryptography.Xml" Version="$(SystemSecurityCryptographyXmlPackageVersion)" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="$(SystemConfigurationConfigurationManagerPackageVersion)" />
-    <PackageReference Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
     <PackageReference Include="System.Security.Permissions" Version="$(SystemSecurityPermissionsPackageVersion)" />
   </ItemGroup>
 

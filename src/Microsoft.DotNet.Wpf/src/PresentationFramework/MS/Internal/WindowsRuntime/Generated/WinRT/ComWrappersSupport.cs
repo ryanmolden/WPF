@@ -36,7 +36,11 @@ namespace WinRT
             PlatformSpecificInitialize();
         }
 
+#if NETFX
+        static unsafe partial void PlatformSpecificInitialize();
+#else
         static partial void PlatformSpecificInitialize();
+#endif
 
         public static TReturn MarshalDelegateInvoke<TDelegate, TReturn>(IntPtr thisPtr, Func<TDelegate, TReturn> invoke)
             where TDelegate : class, Delegate

@@ -189,7 +189,11 @@ namespace System.Windows
                                     keyTime.Percent * 100.0,
                                     destinationType);
 
+#if NETFX
+                            return string.Concat(returnValue, "%");
+#else
                             return string.Concat(returnValue, (ReadOnlySpan<char>)stackalloc char[] { '%' });
+#endif
 
                         case KeyTimeType.TimeSpan:
 

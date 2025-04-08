@@ -11,6 +11,7 @@ using System.Text;
 using WinRT.Interop;
 using static System.Runtime.InteropServices.ComWrappers;
 
+#if !NETFX
 namespace WinRT
 {
     internal static partial class ComWrappersSupport
@@ -157,3 +158,4 @@ namespace WinRT
         }
     }
 }
+#endif

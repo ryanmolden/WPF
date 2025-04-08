@@ -120,7 +120,11 @@ namespace System.Windows.Input
                 
                 if (!spanSource.IsEmpty)
                 {
+#if NETFX
+                    sn = (InputScopeNameValue)Enum.Parse(typeof(InputScopeNameValue), spanSource.ToString());
+#else
                     sn = Enum.Parse<InputScopeNameValue>(spanSource);
+#endif
                 }
             }
             

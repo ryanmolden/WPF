@@ -1360,6 +1360,13 @@
     <Compile Include="System\Windows\Resources\AssemblyAssociatedContentFileAttribute.cs" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'">
+    <Compile Include="$(WpfSharedDir)\OtherAssemblyAttrs.Global.cs" />
+    <Compile Include="$(WpfSharedDir)\System\DictionaryHelpers.cs" />
+    <Compile Include="$(WpfSharedDir)\System\InternalArgumentNullException.cs" />
+    <Compile Include="$(WpfSharedDir)\System\ReferenceEqualityComparer.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <NetCoreReference Include="Microsoft.Win32.Primitives" />
     <NetCoreReference Include="Microsoft.Win32.Registry" />
@@ -1405,8 +1412,8 @@
 
   <ItemGroup>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="$(SystemConfigurationConfigurationManagerPackageVersion)" />
-    <PackageReference Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
-    <PackageReference Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
   </ItemGroup>
 
   <ItemGroup>

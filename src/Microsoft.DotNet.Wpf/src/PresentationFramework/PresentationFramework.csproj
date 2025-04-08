@@ -1359,6 +1359,10 @@
     <Compile Include="System\Windows\WindowCollection.cs" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'">
+    <Compile Include="$(WpfSharedDir)\OtherAssemblyAttrs.Global.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <MicrosoftPrivateWinFormsReference Include="Accessibility" />
   </ItemGroup>
@@ -1443,8 +1447,8 @@
 
   <ItemGroup>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="$(SystemConfigurationConfigurationManagerPackageVersion)" />
-    <PackageReference Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
-    <PackageReference Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
   </ItemGroup>
 
     <!-- Including the Microsoft.TextTemplating.targets requires us to manually import Sdk.Targets because

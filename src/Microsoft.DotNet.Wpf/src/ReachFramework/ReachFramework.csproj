@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    
     <EnableDefaultItems>false</EnableDefaultItems>
   </PropertyGroup>
 
@@ -387,6 +386,6 @@
 
   <ItemGroup>
     <PackageReference Include="System.Security.Cryptography.Xml" Version="$(SystemSecurityCryptographyXmlPackageVersion)" />
-    <PackageReference Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
   </ItemGroup>
 </Project>

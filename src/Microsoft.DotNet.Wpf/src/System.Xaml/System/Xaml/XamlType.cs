@@ -1511,7 +1511,11 @@ namespace System.Xaml
                 // save the subscript
                 string subscript;
                 typeName = GenericTypeNameScanner.StripSubscript(typeName, out subscript);
+#if NETFX
+                typeName = string.Concat(typeName.Substring(0, index), subscript);
+#else
                 typeName = string.Concat(typeName.AsSpan(0, index), subscript);
+#endif
             }
             // if nested, add the containing name
             if (type.IsNested)

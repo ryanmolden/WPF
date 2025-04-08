@@ -37,7 +37,11 @@ namespace MS.Internal.Xaml.Parser
 
         public static bool ContainsDot(string name)
         {
+#if NETFX
+            return name.Contains(".");
+#else
             return name.Contains(Dot);
+#endif
         }
 
         public static bool IsValidXamlName(string name)

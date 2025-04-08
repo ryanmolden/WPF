@@ -7,6 +7,10 @@ using System.Diagnostics;
 
 namespace System.Windows.Media
 {
+#if NETFX
+    using ArgumentNullException = System.Xaml.ArgumentNullException;
+#endif
+
     /// <summary>
     /// Aids in making events unique. i.e. you register the same function for
     /// the same event twice, but it will only be called once for each time

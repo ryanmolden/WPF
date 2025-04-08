@@ -1,8 +1,6 @@
 ﻿<Project Sdk="Microsoft.Net.Sdk">
 
   <PropertyGroup>
-
-    
     <Platforms>AnyCPU;x64;arm64</Platforms>
     <EnableDefaultItems>false</EnableDefaultItems>
     <DefineConstants>$(DefineConstants);RIBBON_IN_FRAMEWORK</DefineConstants>
@@ -11,9 +9,9 @@
 
     <!-- Enable Markup compilation using our own internally build PresentationBuildTasks.dll -->
     <InternalMarkupCompilation>true</InternalMarkupCompilation>
+    <ImportFrameworkWinFXTargets>false</ImportFrameworkWinFXTargets>
     <NoInternalTypeHelper>true</NoInternalTypeHelper>
     <GenerateDependencyFile>false</GenerateDependencyFile>
-
   </PropertyGroup>
 
   <ItemGroup>
@@ -154,7 +152,6 @@
     <Compile Include="Microsoft\Windows\Input\IPreviewCommand.cs" />
     <Compile Include="Microsoft\Windows\Input\IPreviewCommandSource.cs" />
     <Compile Include="MS\Internal\Generated\DoubleUtil.cs" />
-
   </ItemGroup>
 
   <!-- Theme files -->
@@ -177,7 +174,6 @@
     <ProjectReference Include="$(WpfSourceDir)PresentationFramework\PresentationFramework.csproj" />
     <ProjectReference Include="$(WpfSourceDir)UIAutomation\UIAutomationProvider\UIAutomationProvider.csproj" />
     <ProjectReference Include="$(WpfSourceDir)UIAutomation\UIAutomationTypes\UIAutomationTypes.csproj" />
-
     <ProjectReference Include="$(WpfSourceDir)Themes\PresentationFramework.Classic\PresentationFramework.Classic.csproj" />
 
     <ProjectReference Include="$(WpfSourceDir)System.Windows.Controls.Ribbon\ref\System.Windows.Controls.Ribbon-ref.csproj">

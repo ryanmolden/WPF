@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net472;net8.0</TargetFrameworks>
+    <TargetFrameworks>net472;net481;net8.0</TargetFrameworks>
     <EnableDefaultItems>false</EnableDefaultItems>
     <EnablePInvokeAnalyzer>true</EnablePInvokeAnalyzer>
 
@@ -51,7 +51,7 @@
   <!--
     Limit the assemblies that are packaged into Microsoft.NET.Sdk.WindowsDesktop
   -->
-  <ItemGroup Condition="'$(TargetFramework)'=='net472'">
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'">
     <PackagingAssemblyContent Include="PresentationBuildTasks.dll" />
     <PackagingAssemblyContent Include="System.Collections.Immutable.dll" />
     <PackagingAssemblyContent Include="System.Memory.dll" />

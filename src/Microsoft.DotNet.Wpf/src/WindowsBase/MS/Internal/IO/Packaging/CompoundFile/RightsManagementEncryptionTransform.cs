@@ -1093,7 +1093,11 @@ namespace MS.Internal.IO.Packaging.CompoundFile
             ContentUser user
             )
         {
+#if NETFX
+            return $"{user.AuthenticationType}:{user.Name}";
+#else
             return string.Create(null, stackalloc char[128], $"{user.AuthenticationType}:{user.Name}");
+#endif
         }
 
         /// <summary>

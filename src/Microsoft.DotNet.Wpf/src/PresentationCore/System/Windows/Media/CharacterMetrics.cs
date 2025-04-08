@@ -169,7 +169,11 @@ namespace System.Windows.Media
                     // Non-empty field; convert it to double.
                     ReadOnlySpan<char> field = s.AsSpan(i, k - i);
                     if (!double.TryParse(
+#if NETFX
+                        field.ToString(),
+#else
                         field,
+#endif
                         NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign,
                         System.Windows.Markup.TypeConverterHelper.InvariantEnglishUS,
                         out metrics[fieldIndex]

@@ -29,8 +29,9 @@
   <PropertyGroup>
     <UseDestinationLibFolder>true</UseDestinationLibFolder>
     <TargetFrameworkIdentifier>.NETCoreApp</TargetFrameworkIdentifier>
+    <TargetFrameworkIdentifier Condition="$(TargetFramework.StartsWith('net4'))!='true'">.NETFramework</TargetFrameworkIdentifier>
     <RestoreProjectStyle>Unknown</RestoreProjectStyle>
-    <!-- 
+    <!--
       Opting out of this to ensure _WindowsBaseReference is used as 
       OutputItemsType in the project reference later.
     -->
@@ -38,8 +39,10 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup>
-    <Keyword>NetCoreCProj</Keyword>
-    <CLRSupport>pure</CLRSupport>
+    <Keyword Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'">NetCoreCProj</Keyword>
+    <Keyword Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'">ManagedCProj</Keyword>
+    <CLRSupport Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'">pure</CLRSupport>
+    <CLRSupport Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'">true</CLRSupport>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ConfigurationType>DynamicLibrary</ConfigurationType>
   </PropertyGroup>
@@ -89,7 +92,7 @@
   <!--
     PackageReferences to pass to CppCliHelper target
   -->
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'">
     <AdditionalPackageReference Include="$(SystemIOPackagingPackage)" Version="$(SystemIOPackagingVersion)" />
   </ItemGroup>
   <!--

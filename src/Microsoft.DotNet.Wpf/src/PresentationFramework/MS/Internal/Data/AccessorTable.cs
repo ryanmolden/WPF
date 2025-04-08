@@ -19,6 +19,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;                // IBindingList
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;                    // TypeDescriptor
 using System.Windows;                       // SR
 using System.Windows.Threading;             // Dispatcher
@@ -115,6 +116,18 @@ namespace MS.Internal.Data
             int originalCount = _table.Count;
 #endif
 
+#if NETFX
+            List<AccessorTableKey> keys = _table.Keys.ToList();
+
+            foreach (AccessorTableKey key in keys)
+            {
+                int age = _generation - _table[key].Generation;
+                if (age >= AgeLimit)
+                {
+                    _table.Remove(key);
+                }
+            }
+#else
             // Remove entries that are sufficiently old
             foreach (KeyValuePair<AccessorTableKey, AccessorInfo> entry in _table)
             {
@@ -124,6 +137,7 @@ namespace MS.Internal.Data
                     _table.Remove(entry.Key);
                 }
             }
+#endif
 
 #if DEBUG
             if (_traceSize)

@@ -2,10 +2,17 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+#if NETFX
+extern alias System;
+#endif
 
 namespace MS.Internal
 {
+#if NETFX
+    using System::Microsoft.Win32.SafeHandles;
+#else
     using Microsoft.Win32.SafeHandles;
+#endif
     using MS.Win32;
     using System;
     using System.Diagnostics;

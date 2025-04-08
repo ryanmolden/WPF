@@ -624,14 +624,24 @@ namespace Microsoft.Win32
                             // of the filename in s.
 
                             string newFilename;
-                            if (((ReadOnlySpan<char>)extensions[j]).IndexOfAny('*', '?') != -1)
+#if NETFX
+                            string extension = extensions[j];
+                            if (extension.IndexOfAny(new char[] { '*', '?' }) != -1)
+#else
+                            var extension = ((ReadOnlySpan<char>)extensions[j]);
+                            if (extension.IndexOfAny('*', '?') != -1)
+#endif
                             {
                                 // we don't want to append the extension if it contains wild cards
                                 newFilename = fileName.Substring(0, fileName.Length - currentExtension.Length);
                             }
                             else
                             {
+#if NETFX
+                                newFilename = string.Concat(fileName.Substring(0, fileName.Length - currentExtension.Length), ".", extensions[j]);
+#else
                                 newFilename = string.Concat(fileName.AsSpan(0, fileName.Length - currentExtension.Length), ".", extensions[j]);
+#endif
                             }
 
                             // If FOS_FILEMUSTEXIST is not set, or if it is set but the filename we generated
@@ -731,7 +741,11 @@ namespace Microsoft.Win32
             if (filter != null)
             {
                 // Filter strings are '|' delimited, so we split on them
+#if NETFX
+                string[] tokens = filter.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+#else
                 string[] tokens = filter.Split('|', StringSplitOptions.RemoveEmptyEntries);
+#endif
 
                 // Calculate the index of the token containing extension(s) selected
                 // by the FilterIndex property.  Remember FilterIndex is one based.

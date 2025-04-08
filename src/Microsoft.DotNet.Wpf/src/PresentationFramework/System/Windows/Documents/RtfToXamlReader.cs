@@ -239,7 +239,13 @@ namespace System.Windows.Documents
             d = 0.0;
             try
             {
-                d = double.Parse(s, provider: CultureInfo.InvariantCulture);
+                d = double.Parse(
+#if NETFX
+                    s.ToString(),
+#else
+                    s,
+#endif
+                    provider: CultureInfo.InvariantCulture);
             }
             catch (System.OverflowException)
             {
@@ -260,7 +266,13 @@ namespace System.Windows.Documents
             i = 0;
             try
             {
-                i = int.Parse(s, provider: CultureInfo.InvariantCulture);
+                i = int.Parse(
+#if NETFX
+                    s.ToString(),
+#else
+                    s,
+#endif
+                    provider: CultureInfo.InvariantCulture);
             }
             catch (System.OverflowException)
             {
@@ -290,7 +302,13 @@ namespace System.Windows.Documents
             i = 0;
             try
             {
-                i = System.Int32.Parse(s, System.Globalization.NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture);
+                i = System.Int32.Parse(
+#if NETFX
+                    s.ToString(),
+#else
+                    s,
+#endif
+                    provider: CultureInfo.InvariantCulture);
             }
             catch (System.OverflowException)
             {
@@ -1957,8 +1975,13 @@ namespace System.Windows.Documents
 
         internal string RTFEncoding =>
             IsNone ? "\\brdrnone" :
+#if NETFX
+            CF < 0 ? $"\\brdrs\\brdrw{EffectiveWidth}" :
+                     $"\\brdrs\\brdrw{EffectiveWidth}\\brdrcf{CF}";
+#else
             CF < 0 ? string.Create(CultureInfo.InvariantCulture, stackalloc char[128], $"\\brdrs\\brdrw{EffectiveWidth}") :
-            string.Create(CultureInfo.InvariantCulture, stackalloc char[128], $"\\brdrs\\brdrw{EffectiveWidth}\\brdrcf{CF}");
+                     string.Create(CultureInfo.InvariantCulture, stackalloc char[128], $"\\brdrs\\brdrw{EffectiveWidth}\\brdrcf{CF}");
+#endif
 
         static internal BorderFormat EmptyBorderFormat
         {
@@ -4980,7 +5003,11 @@ namespace System.Windows.Documents
                 if (currentIndex != index)
                 {
                     ReadOnlySpan<char> substring = text.AsSpan(index, currentIndex - index);
+#if NETFX
+                    xamlStringBuilder.Append(substring.ToString());
+#else
                     xamlStringBuilder.Append(substring);
+#endif
                 }
                 if (currentIndex < text.Length)
                 {
@@ -8556,7 +8583,13 @@ namespace System.Windows.Documents
 
                     try
                     {
-                        d = double.Parse(ptString, provider: CultureInfo.InvariantCulture);
+                        d = double.Parse(
+#if NETFX
+                            ptString.ToString(),
+#else
+                            ptString,
+#endif
+                            provider: CultureInfo.InvariantCulture);
                     }
                     catch (System.OverflowException)
                     {

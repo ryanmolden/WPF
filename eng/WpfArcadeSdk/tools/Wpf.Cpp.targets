@@ -381,6 +381,15 @@ using namespace System::Runtime::Versioning;
       <Output ItemName="_NugetReferencesForCppCli" TaskParameter="Result" />
     </FilterItem1ByItem2>
   </Target>
+  <Target
+    Name="GetPackagePathProperties"
+    Returns="%40(NugetPackagePaths)">
+    <ItemGroup>
+      <NugetPackagePaths Include="PkgSystem_IO_Packaging">
+        <Value>%24(PkgSystem_IO_Packaging)</Value>
+      </NugetPackagePaths>
+    </ItemGroup>
+  </Target>
   <ItemGroup>
     <NugetReferencesForCppCli Include="%40(_NugetReferencesForCppCli->'%25(OriginalItemSpec)')" />
   </ItemGroup>
@@ -410,10 +419,23 @@ using namespace System::Runtime::Versioning;
       </ProjectToBuild>
     </ItemGroup>
     <MSBuild Projects="@(ProjectToBuild)"
-             Targets="Restore;ResolveReferences;IdentifyNugetReferences"
+             Targets="Restore"
+             Properties="TargetFramework=$(TargetFramework);Platform=$(Architecture);RuntimeIdentifier=win-$(Architecture);ForceEvalOnNextMsBuild=true" />
+
+    <MSBuild Projects="@(ProjectToBuild)"
+             Targets="ResolveReferences;IdentifyNugetReferences;GetPackagePathProperties"
              Properties="TargetFramework=$(TargetFramework);Platform=$(Architecture);RuntimeIdentifier=win-$(Architecture)">
-      <Output  TaskParameter="TargetOutputs" ItemName="NugetReferencesForCppCli" />
+      <Output TaskParameter="TargetOutputs" ItemName="MixedTargetOutputs" />
     </MSBuild>
+
+    <ItemGroup>
+      <NugetReferencesForCppCli Condition="'%(MixedTargetOutputs.MSBuildSourceTargetName)'=='ResolveReferences'" Include="@(MixedTargetOutputs)" />
+      <NugetPackagePaths Condition="'%(MixedTargetOutputs.MSBuildSourceTargetName)'=='GetPackagePathProperties'" Include="@(MixedTargetOutputs)" />
+    </ItemGroup>
+
+    <CreateProperty Value="%(NugetPackagePaths.Value)">
+      <Output TaskParameter="Value" PropertyName="%(NugetPackagePaths.Identity)" />
+    </CreateProperty>
 
     <!--
       Add the newly discovered list of .NET core references to $(AdditionalExplicitAssemblyReferences)

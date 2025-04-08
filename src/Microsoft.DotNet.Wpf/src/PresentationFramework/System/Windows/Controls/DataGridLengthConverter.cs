@@ -271,7 +271,13 @@ namespace System.Windows.Controls
                     "unitFactor should not be other than 1.0 unless the unit type is Pixel.");
 
                 ReadOnlySpan<char> valueString = goodString.AsSpan(0, strLen - strLenUnit);
-                value = double.Parse(valueString, provider: cultureInfo) * unitFactor;
+                value = double.Parse(
+#if NETFX
+                    valueString.ToString(),
+#else
+                    valueString,
+#endif
+                    provider: cultureInfo) * unitFactor;
             }
 
             return new DataGridLength(value, unit);

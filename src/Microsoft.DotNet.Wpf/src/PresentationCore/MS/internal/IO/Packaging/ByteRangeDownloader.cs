@@ -797,9 +797,13 @@ namespace MS.Internal.IO.Packaging
             }
 
             // Get the first byte offset of the range (XXX)
-            int firstByteOffset = Int32.Parse(contentRange.AsSpan(ByteRangeUnit.Length,
-                                                                        index - ByteRangeUnit.Length),
-                                                NumberStyles.None, NumberFormatInfo.InvariantInfo);
+            int firstByteOffset = Int32.Parse(
+#if NETFX
+                contentRange.Substring(ByteRangeUnit.Length, index - ByteRangeUnit.Length),
+#else
+                contentRange.AsSpan(ByteRangeUnit.Length, index - ByteRangeUnit.Length),
+#endif
+                NumberStyles.None, NumberFormatInfo.InvariantInfo);
 
             ReadOnlySpan<char> contentRangeSpan = contentRange.AsSpan(index + 1);
             // ContentRange: YYY/ZZZ
@@ -811,7 +815,13 @@ namespace MS.Internal.IO.Packaging
             }
 
             // Get the last byte offset of the range (YYY)
-            int lastByteOffset = Int32.Parse(contentRangeSpan.Slice(0, index), NumberStyles.None, NumberFormatInfo.InvariantInfo);
+            int lastByteOffset = Int32.Parse(
+#if NETFX
+                contentRangeSpan.Slice(0, index).ToString(),
+#else
+                contentRangeSpan.Slice(0, index),
+#endif
+                NumberStyles.None, NumberFormatInfo.InvariantInfo);
 
             // Get the instance length
             // ContentRange: ZZZ
@@ -822,7 +832,13 @@ namespace MS.Internal.IO.Packaging
                 //  if it is not an integer or the integer is bigger than Int32 since HttpWebRequest.AddRange
                 //  only supports Int32
                 //  Once HttpWebRequest.AddRange start supporting Int64 we should change it to Int64 and long
-                Int32.Parse(contentRangeSpan, NumberStyles.None, NumberFormatInfo.InvariantInfo);
+                Int32.Parse(
+#if NETFX
+                    contentRangeSpan.ToString(),
+#else
+                    contentRangeSpan,
+#endif
+                    NumberStyles.None, NumberFormatInfo.InvariantInfo);
             }
 
             // The response is considered to be successful if

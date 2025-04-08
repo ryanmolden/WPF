@@ -239,7 +239,13 @@ namespace Microsoft.Windows.Controls.Ribbon
                     DoubleUtil.AreClose(unitFactor, 1.0));
 
                 ReadOnlySpan<char> valueString = goodString.AsSpan(0, strLen - strLenUnit);
-                value = double.Parse(valueString, provider: cultureInfo) * unitFactor;
+                value = double.Parse(
+#if NETFX
+                    valueString.ToString(),
+#else
+                    valueString,
+#endif
+                     provider: cultureInfo) * unitFactor;
             }
 
             return new RibbonControlLength(value, unit);

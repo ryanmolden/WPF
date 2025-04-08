@@ -428,7 +428,11 @@ namespace System.Windows.Documents
                 if (colon == -1)
                 {
                     // parse glyph cluster size
+#if NETFX
+                    string characterClusterSpec = valueSpec.Slice(firstBracket + 1, secondBracket - firstBracket - 1).ToString();
+#else
                     ReadOnlySpan<char> characterClusterSpec = valueSpec.Slice(firstBracket + 1, secondBracket - (firstBracket + 1));
+#endif
                     characterClusterSize = int.Parse(characterClusterSpec, provider: CultureInfo.InvariantCulture);
                     glyphClusterSize = 1;
                 }
@@ -436,9 +440,14 @@ namespace System.Windows.Documents
                 {
                     if (colon <= firstBracket + 1 || colon >= secondBracket - 1)
                         throw new ArgumentException(SR.GlyphsClusterMisplacedSeparator);
+#if NETFX
+                    string characterClusterSpec = valueSpec.Slice(firstBracket + 1, colon - (firstBracket + 1)).ToString();
+                    string glyphClusterSpec = valueSpec.Slice(colon + 1, secondBracket - (colon + 1)).ToString();
+#else
                     ReadOnlySpan<char> characterClusterSpec = valueSpec.Slice(firstBracket + 1, colon - (firstBracket + 1));
-                    characterClusterSize = int.Parse(characterClusterSpec, provider: CultureInfo.InvariantCulture);
                     ReadOnlySpan<char> glyphClusterSpec = valueSpec.Slice(colon + 1, secondBracket - (colon + 1));
+#endif
+                    characterClusterSize = int.Parse(characterClusterSpec, provider: CultureInfo.InvariantCulture);
                     glyphClusterSize = int.Parse(glyphClusterSpec, provider: CultureInfo.InvariantCulture);
                 }
                 inCluster = true;
@@ -447,7 +456,14 @@ namespace System.Windows.Documents
             if (IsEmpty(glyphIndexString))
                 return false;
 
-            glyphIndex = ushort.Parse(glyphIndexString, provider: CultureInfo.InvariantCulture);
+            glyphIndex = ushort.Parse(
+#if NETFX
+                glyphIndexString.ToString(),
+#else
+                glyphIndexString,
+#endif
+                provider: CultureInfo.InvariantCulture);
+
             return true;
         }
 
@@ -602,7 +618,14 @@ namespace System.Windows.Documents
                                 // interpret glyph advance spec
                                 if (!IsEmpty(valueSpec))
                                 {
-                                    parsedGlyphData.advanceWidth = double.Parse(valueSpec, provider: CultureInfo.InvariantCulture);
+                                    parsedGlyphData.advanceWidth = double.Parse(
+#if NETFX
+                                        valueSpec.ToString(),
+#else
+                                        valueSpec,
+#endif
+                                        provider: CultureInfo.InvariantCulture);
+
                                     if (parsedGlyphData.advanceWidth < 0)
                                         throw new ArgumentException(SR.GlyphsAdvanceWidthCannotBeNegative);
                                 }
@@ -611,13 +634,27 @@ namespace System.Windows.Documents
                             case 2:
                                 // interpret glyph offset X
                                 if (!IsEmpty(valueSpec))
-                                    parsedGlyphData.offsetX = double.Parse(valueSpec, provider: CultureInfo.InvariantCulture);
+                                    parsedGlyphData.offsetX = double.Parse(
+#if NETFX
+                                        valueSpec.ToString(),
+#else
+                                        valueSpec,
+#endif
+                                        provider: CultureInfo.InvariantCulture);
+
                                 break;
 
                             case 3:
                                 // interpret glyph offset Y
                                 if (!IsEmpty(valueSpec))
-                                    parsedGlyphData.offsetY = double.Parse(valueSpec, provider: CultureInfo.InvariantCulture);
+                                    parsedGlyphData.offsetY = double.Parse(
+#if NETFX
+                                        valueSpec.ToString(),
+#else
+                                        valueSpec,
+#endif
+                                        provider: CultureInfo.InvariantCulture);
+
                                 break;
 
                             default:

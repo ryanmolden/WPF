@@ -369,7 +369,11 @@ namespace System.Windows.Markup.Primitives
                         else
                         {
                             // It is a nested markup-extension, just insert the text literally.
+#if NETFX
+                            resultBuilder.Append(value.ToString());
+#else
                             resultBuilder.Append(value);
+#endif
                             continue;
                         }
                     }

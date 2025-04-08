@@ -237,7 +237,13 @@ namespace System.Windows.Xps.Serialization
                     int index = valueAsString.LastIndexOf('.');
                     valueAsString = string.Concat(
                         XpsSerializationManager.TypeOfString,
-                        index > 0 ? valueAsString.AsSpan(index + 1) : valueAsString,
+                        index > 0 ?
+#if NETFX
+                        valueAsString.Substring(index + 1)
+#else
+                        valueAsString.AsSpan(index + 1)
+#endif
+                        : valueAsString,
                         "}");
                 }
             }

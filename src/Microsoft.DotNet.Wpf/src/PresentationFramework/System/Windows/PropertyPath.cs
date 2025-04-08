@@ -929,10 +929,15 @@ namespace System.Windows
                 return false;
             }
 
-            return Int32.TryParse(toParse,
-                                NumberStyles.Integer,
-                                TypeConverterHelper.InvariantEnglishUS.NumberFormat,
-                                out index);
+            return Int32.TryParse(
+#if NETFX
+                toParse.ToString(),
+#else
+                toParse,
+#endif
+                NumberStyles.Integer,
+                TypeConverterHelper.InvariantEnglishUS.NumberFormat,
+                out index);
         }
 
         // determine if an object is one of the accessors we support

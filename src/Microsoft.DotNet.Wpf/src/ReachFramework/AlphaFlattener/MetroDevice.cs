@@ -19,6 +19,10 @@ using System.Security;
 using System.Text;
 using MS.Utility;
 
+#if NETFX
+using ArgumentNullException = System.ArgumentNullException;
+#endif
+
 namespace Microsoft.Internal.AlphaFlattener
 {
     /// <summary>

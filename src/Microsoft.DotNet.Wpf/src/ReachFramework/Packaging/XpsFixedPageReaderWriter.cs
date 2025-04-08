@@ -1867,8 +1867,13 @@ namespace System.Windows.Xps.Packaging
             )
         {
             //Extract file extension without '.'
+#if NETFX
+            string path = imageUri.OriginalString;
+            string extension = Path.GetExtension(path).Substring(1);
+#else
             ReadOnlySpan<char> path = imageUri.OriginalString.AsSpan();
             ReadOnlySpan<char> extension = Path.GetExtension(path).Slice(1);
+#endif
             ContentType contentType;
             if (extension.Equals(XpsS0Markup.JpgExtension, StringComparison.OrdinalIgnoreCase))
             {

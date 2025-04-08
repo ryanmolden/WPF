@@ -12265,11 +12265,19 @@ namespace System.Windows.Controls
                         sb.Append('/');
                     }
 
+#if NETFX
+                    string name = t.ToString();
+#else
                     ReadOnlySpan<char> name = t.ToString();
+#endif
                     isWPFControl = name.StartsWith("System.Windows.Controls.");
                     if (isWPFControl)
                     {
+#if NETFX
+                        name = name.Substring(24); // 24 == length of "s.w.c."
+#else
                         name = name.Slice(24); // 24 == length of "s.w.c."
+#endif
                     }
 
                     sb.Append(name);
@@ -12560,7 +12568,11 @@ namespace System.Windows.Controls
                     {
                         int dotIndex = filename.LastIndexOf('.');
                         if (dotIndex < 0) dotIndex = filename.Length;
+#if NETFX
+                        filename = $"{filename.Substring(0, dotIndex)}{s_seqno}{filename.Substring(dotIndex)}";
+#else
                         filename = $"{filename.AsSpan(0, dotIndex)}{s_seqno}{filename.AsSpan(dotIndex)}";
+#endif
                     }
 
                     // create the TraceList

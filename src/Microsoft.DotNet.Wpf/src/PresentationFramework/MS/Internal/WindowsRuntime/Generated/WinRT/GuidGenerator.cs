@@ -136,7 +136,12 @@ namespace WinRT
                 return new Guid(sig);
             }
             var data = wrt_pinterface_namespace.ToByteArray().Concat(UTF8Encoding.UTF8.GetBytes(sig)).ToArray();
+#if NETFX
+            using SHA1 sha1 = SHA1.Create();
+            return encode_guid(sha1.ComputeHash(data));
+#else
             return encode_guid(SHA1.HashData(data));
+#endif
         }
     }
 }

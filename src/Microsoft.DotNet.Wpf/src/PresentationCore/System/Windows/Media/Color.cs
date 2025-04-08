@@ -279,7 +279,11 @@ namespace System.Windows.Media
             {
                 if (format == null)
                 {
+#if NETFX
+                    return $"#{this.sRgbColor.a:X2}{this.sRgbColor.r:X2}{this.sRgbColor.g:X2}{this.sRgbColor.b:X2}";
+#else
                     return string.Create(provider, stackalloc char[128], $"#{this.sRgbColor.a:X2}{this.sRgbColor.r:X2}{this.sRgbColor.g:X2}{this.sRgbColor.b:X2}");
+#endif
                 }
                 else
                 {

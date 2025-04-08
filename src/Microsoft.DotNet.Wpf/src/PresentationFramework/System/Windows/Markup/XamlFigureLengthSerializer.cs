@@ -258,7 +258,11 @@ namespace System.Windows.Markup
                             ||  DoubleUtil.AreClose(unitFactor, 1.0)    );
 
                 ReadOnlySpan<char> valueString = goodString.AsSpan(0, strLen - strLenUnit);
+#if NETFX
+                value = double.Parse(valueString.ToString(), provider: cultureInfo) * unitFactor;
+#else
                 value = double.Parse(valueString, provider: cultureInfo) * unitFactor;
+#endif
             }
         }
 

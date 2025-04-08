@@ -15,6 +15,11 @@
     <Compile Include="$(WpfSourceDir)System.Xaml\OtherAssemblyAttrs.cs" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)'=='.NETFramework'">
+    <Compile Include="$(WpfSourceDir)System.Xaml\System\Xaml\Permissions\XamlAccessLevel.cs" />
+    <Compile Include="$(WpfSourceDir)System.Xaml\System\Xaml\Permissions\XamlLoadPermission.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <NetCoreReference Include="netstandard" />
     <NetCoreReference Include="System" />
@@ -50,6 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Security.Permissions" Version="$(SystemSecurityPermissionsPackageVersion)" />
-    <PackageReference Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
+    <PackageReference Condition="'$(TargetFrameworkIdentifier)'!='.NETFramework'" Include="System.Windows.Extensions" Version="$(SystemWindowsExtensionsPackageVersion)" />
   </ItemGroup>
 </Project>
